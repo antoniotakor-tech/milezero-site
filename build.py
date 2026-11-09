@@ -73,9 +73,9 @@ s = re.sub(r'<tr><td>Fonts</td>.*?</tr>',
 s = re.sub(r'<tr><td>Lettertypen</td>.*?</tr>',
            '<tr><td>Lettertypen</td><td>Komen van deze website zelf. Geen lettertype-aanbieder, zoals Google Fonts, ontvangt je IP-adres.</td></tr>', s)
 s = s.replace('<tr><td>The web demo and these pages (milezero-e4k.pages.dev)</td>',
-              '<tr><td>The landing page and this page</td><td><b>No cookies.</b> One item in your browser&rsquo;s local storage, <code>mz-cookie-notice-v1</code>, remembers that you accepted the cookie notice. No analytics and no calls to other servers. See the <a href="../cookies/">cookie policy</a>.</td></tr>\n    <tr><td>The web demo (milezero-e4k.pages.dev)</td>')
+              '<tr><td>The landing page and this page</td><td><b>No cookies.</b> Nothing is stored in your browser: the cookie notice appears on every visit because your choice is not remembered. No analytics and no calls to other servers. See the <a href="../cookies/">cookie policy</a>.</td></tr>\n    <tr><td>The web demo (milezero-e4k.pages.dev)</td>')
 s = s.replace('<tr><td>De webdemo en deze pagina&rsquo;s (milezero-e4k.pages.dev)</td>',
-              '<tr><td>De landingspagina en deze pagina</td><td><b>Geen cookies.</b> Eén item in de lokale opslag van je browser, <code>mz-cookie-notice-v1</code>, onthoudt dat je de cookiemelding hebt geaccepteerd. Geen analyse en geen verbinding met andere servers. Zie het <a href="../cookies/">cookiebeleid</a>.</td></tr>\n    <tr><td>De webdemo (milezero-e4k.pages.dev)</td>')
+              '<tr><td>De landingspagina en deze pagina</td><td><b>Geen cookies.</b> Er wordt niets in je browser opgeslagen: de cookiemelding verschijnt bij elk bezoek, omdat je keuze niet wordt onthouden. Geen analyse en geen verbinding met andere servers. Zie het <a href="../cookies/">cookiebeleid</a>.</td></tr>\n    <tr><td>De webdemo (milezero-e4k.pages.dev)</td>')
 s = s.replace('<h2>5. Cookies and similar technologies</h2>', '<h2 id="cookies">5. Cookies and similar technologies</h2>')
 s = s.replace('Last updated 5 November 2026', 'Last updated 9 November 2026').replace('Laatst bijgewerkt op 5 november 2026', 'Laatst bijgewerkt op 9 november 2026')
 open('privacy/index.html', 'w').write(s)

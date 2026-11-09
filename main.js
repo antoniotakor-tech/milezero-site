@@ -1,4 +1,4 @@
-/* MileZero landing: no cookies, no network calls. Stores one item: that the cookie notice was accepted. */
+/* MileZero landing: no cookies, no network calls. Stores nothing. */
 (function () {
   'use strict';
   /* Clickjacking guard: GitHub Pages can't send X-Frame-Options or a frame-ancestors header,
@@ -150,14 +150,13 @@
     $$('main section[id]').forEach(function (s) { navIO.observe(s); });
   }
 
-  /* cookie notice: shown until accepted. The only thing stored is that choice (strictly necessary). */
-  var consent = $('#consent'), KEY = 'mz-cookie-notice-v1', seen = false;
-  try { seen = !!localStorage.getItem(KEY); } catch (e) { seen = false; }
-  if (consent && !seen) {
+  /* cookie notice: shown on every visit. Nothing is stored, so the choice is not remembered. */
+  var consent = $('#consent');
+  try { localStorage.removeItem('mz-cookie-notice-v1'); } catch (e) {}   /* clear the item older visits saved */
+  if (consent) {
     consent.hidden = false;
     setTimeout(function () { consent.classList.add('show'); }, reduce ? 0 : 600);
     $('#consentOk').addEventListener('click', function () {
-      try { localStorage.setItem(KEY, 'accepted ' + new Date().toISOString().slice(0, 10)); } catch (e) {}
       consent.classList.remove('show');
       setTimeout(function () { consent.hidden = true; }, reduce ? 0 : 500);
     });
