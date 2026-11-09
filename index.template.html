@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#3a3d43">
+<title>MileZero: red or green before you tap</title>
+<meta name="description" content="MileZero reads the ride offer on your own phone and turns it red or green against your own limit. Nothing leaves your phone.">
+<meta property="og:title" content="MileZero: red or green before you tap">
+<meta property="og:description" content="A ride check for Uber and Bolt drivers in Amsterdam. Nothing leaves your phone.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/barlow-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg id="road" class="road" aria-hidden="true" focusable="false">
+  <defs>
+    <mask id="mReveal" maskUnits="userSpaceOnUse"><path id="maskPath" fill="none" stroke="#fff" stroke-width="70" stroke-linecap="round"/></mask>
+    <mask id="mHot" maskUnits="userSpaceOnUse"><path id="hotMaskPath" fill="none" stroke="#fff" stroke-width="70"/></mask>
+    <linearGradient id="beam" x1="0" x2="1"><stop offset="0" stop-color="#f5b93b" stop-opacity=".45"/><stop offset="1" stop-color="#f5b93b" stop-opacity="0"/></linearGradient>
+  </defs>
+  <path id="roadCentre" fill="none" stroke="none"/>
+  <g class="tread" mask="url(#mReveal)"><path id="trackL"/><path id="trackR"/></g>
+  <g class="tread hot" mask="url(#mHot)"><path id="hotL"/><path id="hotR"/></g>
+  <g id="car"><g class="car-body">
+    <polygon points="22,-9 150,-52 150,52 22,9" fill="url(#beam)"/>
+    <rect x="-24" y="-13" width="48" height="26" rx="8" fill="#f4f6f8"/>
+    <rect x="-10" y="-10" width="21" height="20" rx="4" fill="#3a3d43"/>
+    <rect x="12" y="-10" width="6" height="20" rx="2" fill="#17191d"/>
+    <rect x="-3" y="-4" width="7" height="8" rx="1.5" fill="#f5b93b"/>
+    <circle cx="22" cy="-8" r="2.4" fill="#fff6dc"/><circle cx="22" cy="8" r="2.4" fill="#fff6dc"/>
+    <rect x="-25" y="-11" width="3" height="5" rx="1" fill="#f0532d"/><rect x="-25" y="6" width="3" height="5" rx="1" fill="#f0532d"/>
+  </g></g>
+</svg>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="MileZero, back to top">{{STONE}}{{WM}}</a>
+    <ul>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#rule">The rule</a></li>
+      <li><a href="#privacy">Privacy</a></li>
+      <li><a href="#team">Team</a></li>
+    </ul>
+    <a class="btn" href="#contact">Test it with us</a>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="band" id="band" aria-hidden="true">
+    <div class="wrap band-in"><b id="bandWord">Reading</b><span id="bandInfo">…</span></div>
+  </div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow fade">For Uber and Bolt drivers in Amsterdam</p>
+      <h1><span class="l"><span>Red or green,</span></span><span class="l"><span><em>before you tap.</em></span></span></h1>
+      <p class="lead fade">You get about ten seconds to accept a ride. MileZero reads the offer on your own phone and checks it against the limit you set. Good rides turn green, bad rides turn red. You still decide.</p>
+      <div class="cta fade">
+        <a class="btn" href="#how">How it works</a>
+        <a class="btn ghost" href="#privacy">What it reads</a>
+      </div>
+    </div>
+    <aside class="ticket fade" aria-label="Example ride offer that the band above is judging">
+      <div class="ticket-top"><span id="app">UberX</span><span>Example offer</span></div>
+      <div class="fare" id="fare">€54,56</div>
+      <div class="timer"><i id="timer"></i></div>
+      <dl>
+        <div><dt>Pickup</dt><dd id="pick">9 min</dd></div>
+        <div><dt>Trip</dt><dd id="trip">57 min</dd></div>
+        <div class="tot"><dt>Total time</dt><dd id="tot">66 min</dd></div>
+        <div><dt>Your limit</dt><dd>€0,50 / min</dd></div>
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<section class="sec" id="problem">
+  <div class="wrap">
+    <p class="eyebrow rv">What drivers told us</p>
+    <blockquote class="quote rv">
+      <p>“Just guessing before the timer runs out is fundamentally broken and exhausting.”</p>
+      <cite>A platform driver in Amsterdam, from the team’s driver interviews, 2026</cite>
+    </blockquote>
+    <dl class="facts">
+      <div class="rv"><dt>10 s</dt><dd>to accept or decline an offer on Uber or Bolt</dd></div>
+      <div class="rv" data-d=".08s"><dt>6 of 11</dt><dd>full driver interviews named this as their biggest frustration</dd></div>
+      <div class="rv" data-d=".16s"><dt>20.7%</dt><dd>how much gig workers overestimate their net hourly pay (Pires, 2024, unpublished)</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="sec" id="how">
+  <div class="wrap">
+    <h2 class="rv">Start it once, then drive.</h2>
+    <ol class="lane">
+      <li class="rv"><span class="stop">1</span><h3>Set your limit</h3><p>Choose what a minute of your time is worth, for example €0,50. Tap start and allow screen sharing.</p></li>
+      <li class="rv" data-d=".1s"><span class="stop">2</span><h3>An offer comes in</h3><p>MileZero reads the fare, the pickup time and the trip time. Each screen picture is thrown away right after.</p></li>
+      <li class="rv" data-d=".2s"><span class="stop">3</span><h3>The band answers</h3><p>A band at the top of your screen says <b>Good ride</b> or <b>Bad ride</b>. MileZero never taps for you.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="rule">
+  <div class="wrap rule">
+    <div class="rv">
+      <h2>One sum, your limit.</h2>
+      <p class="formula">fare <em>÷</em> (pickup + trip minutes)</p>
+      <p class="lead">Above your limit is green, below it is red. MileZero doesn’t guess your costs or fees, because the screen doesn’t show them.</p>
+    </div>
+    <div class="calc rv" data-d=".1s">
+      <p class="calc-title">Try it</p>
+      <label for="rFare"><div><span>Fare on the offer</span><span id="oFare">€20,00</span></div><input id="rFare" type="range" min="3" max="80" step="0.5" value="20"></label>
+      <label for="rMin"><div><span>Pickup + trip</span><span id="oMin">40 min</span></div><input id="rMin" type="range" min="5" max="120" step="1" value="40"></label>
+      <label for="rLimit"><div><span>Your limit</span><span id="oLimit">€0,50 / min</span></div><input id="rLimit" type="range" min="20" max="100" step="1" value="50"></label>
+      <div class="verdict" id="verdict" role="status" aria-live="polite"><b id="vWord">Good ride</b><span id="vInfo"></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="privacy">
+  <div class="wrap split">
+    <h2 class="rv">It reads the offer. Nobody else sees it.</h2>
+    <div>
+      <dl class="rows">
+        <div class="rv"><dt>What it reads</dt><dd>The fare and the minutes on the offer, on your phone, with text recognition built into the app.</dd></div>
+        <div class="rv"><dt>What it keeps</dt><dd>Your limit, your sound setting and that you agreed. No rides, names or addresses.</dd></div>
+        <div class="rv"><dt>What it sends</dt><dd>Nothing. The Android app has no permission to use the internet.</dd></div>
+        <div class="rv"><dt>This website</dt><dd>No cookies, no analytics, no requests to other servers.</dd></div>
+      </dl>
+      <p class="note rv">Uber and Bolt have their own driver terms and may limit tools that read the screen. Using MileZero is your own choice. Read the full <a href="privacy/">privacy statement</a> and <a href="cookies/">cookie policy</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="status">
+  <div class="wrap">
+    <h2 class="rv">Where MileZero is now</h2>
+    <ol class="timeline">
+      <li class="rv"><span>Done</span><p>An Android app that read a live Uber offer and coloured it, tested with a driver.</p></li>
+      <li class="rv" data-d=".1s"><span>Building</span><p>The iPhone version, with the band in the Dynamic Island.</p></li>
+      <li class="rv" data-d=".2s"><span>Next</span><p>A test round with more drivers in Amsterdam. Not in the app stores yet.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec team-sec" id="team">
+  <div class="wrap">
+    <p class="eyebrow rv">4mobility</p>
+    <ul class="names">
+{{TEAM}}
+    </ul>
+    <p class="team-note rv">Business Innovation students at Inholland, Amsterdam. We interviewed drivers first, then built MileZero.</p>
+  </div>
+</section>
+
+<section class="final" id="contact">
+  <div class="wrap rv">
+    <h2>Drive in Amsterdam? Test it with us.</h2>
+    <p class="lead">We’re looking for Uber and Bolt drivers for the next test round. Send us a message and we’ll get back to you.</p>
+    <a class="btn" href="https://antoniotakor-tech.github.io/#contact" rel="noopener noreferrer" target="_blank">Message the team</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <a class="brand" href="#top" aria-label="MileZero, back to top">{{STONE}}{{WM}}</a>
+      <nav aria-label="Legal"><a href="privacy/">Privacy statement</a><a href="cookies/">Cookie policy</a></nav>
+    </div>
+    <small>MileZero is a student project by the 4mobility team at Inholland University of Applied Sciences. It is not a company, and it is not affiliated with, endorsed by or connected to Uber or Bolt. Uber and Bolt are trademarks of their owners. This site sets no cookies and stores nothing in your browser. © 2026 4mobility.</small>
+  </div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

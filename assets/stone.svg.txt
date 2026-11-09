@@ -1,0 +1,1 @@
+<svg class="stone" viewBox="0 0 200 240" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M30 218V88a70 70 0 0 1 140 0v130h12a6 6 0 0 1 6 6v10a6 6 0 0 1-6 6H18a6 6 0 0 1-6-6v-10a6 6 0 0 1 6-6h12ZM64 136a36 54 0 1 0 72 0a36 54 0 1 0-72 0ZM83 136a17 32 0 1 0 34 0a17 32 0 1 0-34 0Z"/></svg>

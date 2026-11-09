@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#3a3d43">
+<title>MileZero: red or green before you tap</title>
+<meta name="description" content="MileZero reads the ride offer on your own phone and turns it red or green against your own limit. Nothing leaves your phone.">
+<meta property="og:title" content="MileZero: red or green before you tap">
+<meta property="og:description" content="A ride check for Uber and Bolt drivers in Amsterdam. Nothing leaves your phone.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/barlow-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=1794215050">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg id="road" class="road" aria-hidden="true" focusable="false">
+  <defs>
+    <mask id="mReveal" maskUnits="userSpaceOnUse"><path id="maskPath" fill="none" stroke="#fff" stroke-width="70" stroke-linecap="round"/></mask>
+    <mask id="mHot" maskUnits="userSpaceOnUse"><path id="hotMaskPath" fill="none" stroke="#fff" stroke-width="70"/></mask>
+    <linearGradient id="beam" x1="0" x2="1"><stop offset="0" stop-color="#f5b93b" stop-opacity=".45"/><stop offset="1" stop-color="#f5b93b" stop-opacity="0"/></linearGradient>
+  </defs>
+  <path id="roadCentre" fill="none" stroke="none"/>
+  <g class="tread" mask="url(#mReveal)"><path id="trackL"/><path id="trackR"/></g>
+  <g class="tread hot" mask="url(#mHot)"><path id="hotL"/><path id="hotR"/></g>
+  <g id="car"><g class="car-body">
+    <polygon points="22,-9 150,-52 150,52 22,9" fill="url(#beam)"/>
+    <rect x="-24" y="-13" width="48" height="26" rx="8" fill="#f4f6f8"/>
+    <rect x="-10" y="-10" width="21" height="20" rx="4" fill="#3a3d43"/>
+    <rect x="12" y="-10" width="6" height="20" rx="2" fill="#17191d"/>
+    <rect x="-3" y="-4" width="7" height="8" rx="1.5" fill="#f5b93b"/>
+    <circle cx="22" cy="-8" r="2.4" fill="#fff6dc"/><circle cx="22" cy="8" r="2.4" fill="#fff6dc"/>
+    <rect x="-25" y="-11" width="3" height="5" rx="1" fill="#f0532d"/><rect x="-25" y="6" width="3" height="5" rx="1" fill="#f0532d"/>
+  </g></g>
+</svg>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="MileZero, back to top"><svg class="stone" viewBox="0 0 200 240" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M30 218V88a70 70 0 0 1 140 0v130h12a6 6 0 0 1 6 6v10a6 6 0 0 1-6 6H18a6 6 0 0 1-6-6v-10a6 6 0 0 1 6-6h12ZM64 136a36 54 0 1 0 72 0a36 54 0 1 0-72 0ZM83 136a17 32 0 1 0 34 0a17 32 0 1 0-34 0Z"/></svg><svg class="wm" viewBox="0 -82 520 84" aria-hidden="true"><path fill="currentColor" d="M54.20-3.80L74.60-44.70L74.60-19.30L89.80-19.30L89.80-79.10C89.80-79.50 89.40-80 88.70-80L75.50-80C75.10-80 74.60-79.70 74.40-79.40L47.10-20.80L18.40-79.40C18.30-79.70 17.70-80 17.40-80L4-80C3.30-80 3-79.50 3-79.10L3-0.90C3-0.50 3.30 0 4 0L17.20 0C17.80 0 18.30-0.50 18.30-0.90L18.30-45.80L40-3.80C40.10-3.50 40.70-3.20 41-3.20L53.30-3.20C53.60-3.20 54.10-3.50 54.20-3.80ZM131.70-13.70L123.70-13.70L123.70-80L108.40-80L108.40-13.70L100.20-13.70C99.60-13.70 99.10-13.30 99.10-12.80L99.10-0.90C99.10-0.50 99.60 0 100.20 0L131.70 0C132.40 0 132.80-0.50 132.80-0.90L132.80-12.80C132.80-13.30 132.40-13.70 131.70-13.70ZM185.30-14.90L142.10-14.90L142.10-0.90C142.10-0.50 142.60 0 143.20 0L185.30 0C186 0 186.40-0.50 186.40-0.90L186.40-13.90C186.40-14.40 186-14.90 185.30-14.90ZM142.10-30.20L157.40-30.20L157.40-79.10C157.40-79.50 157-80 156.40-80L143.20-80C142.60-80 142.10-79.50 142.10-79.10ZM197.50 0L234.40 0L234.40-14.90L211.70-14.90L211.70-32.90L243.10-32.90C243.70-32.90 244.20-33.40 244.20-33.80L244.20-46.50C244.20-47 243.70-47.40 243.10-47.40L211.70-47.40L211.70-65.50L234.40-65.50L234.40-80L197.50-80C196.90-80 196.40-79.50 196.40-79.10L196.40-0.90C196.40-0.50 196.90 0 197.50 0ZM302.30-14.80L261.20-14.80L255.70-1.30C255.40-0.50 255.80 0 256.80 0L302.20 0C302.90 0 303.40-0.50 303.40-0.90L303.40-13.90C303.40-14.40 303-14.80 302.30-14.80ZM255.50-66.10C255.50-65.60 256.00-65.10 256.60-65.10L281.30-65.10L267.30-30.10L283.70-30.10L303.20-78.70C303.40-79.50 303-80 302.10-80L256.60-80C256.00-80 255.50-79.50 255.50-79.10ZM316.50 0L353.40 0L353.40-14.90L330.70-14.90L330.70-32.90L362.10-32.90C362.70-32.90 363.20-33.40 363.20-33.80L363.20-46.50C363.20-47 362.70-47.40 362.10-47.40L330.70-47.40L330.70-65.50L353.40-65.50L353.40-80L316.50-80C315.90-80 315.40-79.50 315.40-79.10L315.40-0.90C315.40-0.50 315.90 0 316.50 0ZM429.10-1.30C424.10-12.40 418.70-23.40 413.70-34.70C421.70-37.60 428.40-44 428.40-56.20C428.40-79.80 405.90-80 401.40-80L375.50-80C375-80 374.50-79.50 374.50-79.10L374.50-65.50L401.40-65.50C403.80-65.50 413.20-65 413.20-56.20C413.20-47.40 404.70-47 401.40-47L374.50-47L374.50-0.90C374.50-0.50 375 0 375.50 0L388.60 0C389.20 0 389.70-0.50 389.70-0.90L389.70-32.30L398.30-32.30L412.90-0.60C413-0.30 413.60 0 413.90 0L428.20 0C429 0 429.40-0.60 429.10-1.30ZM485.80-39.80C485.80-44 482.50-47.40 478.30-47.40C474.10-47.40 470.80-44 470.80-39.80C470.80-35.70 474.10-32.30 478.30-32.30C482.50-32.30 485.80-35.70 485.80-39.80ZM439.80-40.10C439.80-20.10 452.50 0 478.40 0C503.90 0 516.80-20.10 516.80-40.10C516.80-60 503.90-80 478.40-80C452.50-80 439.80-60 439.80-40.10ZM454.90-39.80C454.90-52.90 462.70-65.90 478.40-65.90C493.90-65.90 501.80-52.90 501.80-39.80C501.80-26.90 493.90-14 478.40-14C462.70-14 454.90-26.90 454.90-39.80Z"/></svg></a>
+    <ul>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#rule">The rule</a></li>
+      <li><a href="#privacy">Privacy</a></li>
+      <li><a href="#team">Team</a></li>
+    </ul>
+    <a class="btn" href="#contact">Test it with us</a>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="band" id="band" aria-hidden="true">
+    <div class="wrap band-in"><b id="bandWord">Reading</b><span id="bandInfo">…</span></div>
+  </div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow fade">For Uber and Bolt drivers in Amsterdam</p>
+      <h1><span class="l"><span>Red or green,</span></span><span class="l"><span><em>before you tap.</em></span></span></h1>
+      <p class="lead fade">You get about ten seconds to accept a ride. MileZero reads the offer on your own phone and checks it against the limit you set. Good rides turn green, bad rides turn red. You still decide.</p>
+      <div class="cta fade">
+        <a class="btn" href="#how">How it works</a>
+        <a class="btn ghost" href="#privacy">What it reads</a>
+      </div>
+    </div>
+    <aside class="ticket fade" aria-label="Example ride offer that the band above is judging">
+      <div class="ticket-top"><span id="app">UberX</span><span>Example offer</span></div>
+      <div class="fare" id="fare">€54,56</div>
+      <div class="timer"><i id="timer"></i></div>
+      <dl>
+        <div><dt>Pickup</dt><dd id="pick">9 min</dd></div>
+        <div><dt>Trip</dt><dd id="trip">57 min</dd></div>
+        <div class="tot"><dt>Total time</dt><dd id="tot">66 min</dd></div>
+        <div><dt>Your limit</dt><dd>€0,50 / min</dd></div>
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<section class="sec" id="problem">
+  <div class="wrap">
+    <p class="eyebrow rv">What drivers told us</p>
+    <blockquote class="quote rv">
+      <p>“Just guessing before the timer runs out is fundamentally broken and exhausting.”</p>
+      <cite>A platform driver in Amsterdam, from the team’s driver interviews, 2026</cite>
+    </blockquote>
+    <dl class="facts">
+      <div class="rv"><dt>10 s</dt><dd>to accept or decline an offer on Uber or Bolt</dd></div>
+      <div class="rv" data-d=".08s"><dt>6 of 11</dt><dd>full driver interviews named this as their biggest frustration</dd></div>
+      <div class="rv" data-d=".16s"><dt>20.7%</dt><dd>how much gig workers overestimate their net hourly pay (Pires, 2024, unpublished)</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="sec" id="how">
+  <div class="wrap">
+    <h2 class="rv">Start it once, then drive.</h2>
+    <ol class="lane">
+      <li class="rv"><span class="stop">1</span><h3>Set your limit</h3><p>Choose what a minute of your time is worth, for example €0,50. Tap start and allow screen sharing.</p></li>
+      <li class="rv" data-d=".1s"><span class="stop">2</span><h3>An offer comes in</h3><p>MileZero reads the fare, the pickup time and the trip time. Each screen picture is thrown away right after.</p></li>
+      <li class="rv" data-d=".2s"><span class="stop">3</span><h3>The band answers</h3><p>A band at the top of your screen says <b>Good ride</b> or <b>Bad ride</b>. MileZero never taps for you.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="rule">
+  <div class="wrap rule">
+    <div class="rv">
+      <h2>One sum, your limit.</h2>
+      <p class="formula">fare <em>÷</em> (pickup + trip minutes)</p>
+      <p class="lead">Above your limit is green, below it is red. MileZero doesn’t guess your costs or fees, because the screen doesn’t show them.</p>
+    </div>
+    <div class="calc rv" data-d=".1s">
+      <p class="calc-title">Try it</p>
+      <label for="rFare"><div><span>Fare on the offer</span><span id="oFare">€20,00</span></div><input id="rFare" type="range" min="3" max="80" step="0.5" value="20"></label>
+      <label for="rMin"><div><span>Pickup + trip</span><span id="oMin">40 min</span></div><input id="rMin" type="range" min="5" max="120" step="1" value="40"></label>
+      <label for="rLimit"><div><span>Your limit</span><span id="oLimit">€0,50 / min</span></div><input id="rLimit" type="range" min="20" max="100" step="1" value="50"></label>
+      <div class="verdict" id="verdict" role="status" aria-live="polite"><b id="vWord">Good ride</b><span id="vInfo"></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="privacy">
+  <div class="wrap split">
+    <h2 class="rv">It reads the offer. Nobody else sees it.</h2>
+    <div>
+      <dl class="rows">
+        <div class="rv"><dt>What it reads</dt><dd>The fare and the minutes on the offer, on your phone, with text recognition built into the app.</dd></div>
+        <div class="rv"><dt>What it keeps</dt><dd>Your limit, your sound setting and that you agreed. No rides, names or addresses.</dd></div>
+        <div class="rv"><dt>What it sends</dt><dd>Nothing. The Android app has no permission to use the internet.</dd></div>
+        <div class="rv"><dt>This website</dt><dd>No cookies, no analytics, no requests to other servers.</dd></div>
+      </dl>
+      <p class="note rv">Uber and Bolt have their own driver terms and may limit tools that read the screen. Using MileZero is your own choice. Read the full <a href="privacy/">privacy statement</a> and <a href="cookies/">cookie policy</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="status">
+  <div class="wrap">
+    <h2 class="rv">Where MileZero is now</h2>
+    <ol class="timeline">
+      <li class="rv"><span>Done</span><p>An Android app that read a live Uber offer and coloured it, tested with a driver.</p></li>
+      <li class="rv" data-d=".1s"><span>Building</span><p>The iPhone version, with the band in the Dynamic Island.</p></li>
+      <li class="rv" data-d=".2s"><span>Next</span><p>A test round with more drivers in Amsterdam. Not in the app stores yet.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec team-sec" id="team">
+  <div class="wrap">
+    <p class="eyebrow rv">4mobility</p>
+    <ul class="names">
+      <li class="rv" data-d="0.00s"><span class="fn">Antonio</span> Frungillo</li>
+      <li class="rv" data-d="0.08s"><span class="fn">Eren</span> Hamza Kocabas</li>
+      <li class="rv" data-d="0.16s"><span class="fn">Jonathan</span> Ludoyo</li>
+      <li class="rv" data-d="0.24s"><span class="fn">Bernardo</span> Piccioli Aguiar</li>
+    </ul>
+    <p class="team-note rv">Business Innovation students at Inholland, Amsterdam. We interviewed drivers first, then built MileZero.</p>
+  </div>
+</section>
+
+<section class="final" id="contact">
+  <div class="wrap rv">
+    <h2>Drive in Amsterdam? Test it with us.</h2>
+    <p class="lead">We’re looking for Uber and Bolt drivers for the next test round. Send us a message and we’ll get back to you.</p>
+    <a class="btn" href="https://antoniotakor-tech.github.io/#contact" rel="noopener noreferrer" target="_blank">Message the team</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <a class="brand" href="#top" aria-label="MileZero, back to top"><svg class="stone" viewBox="0 0 200 240" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M30 218V88a70 70 0 0 1 140 0v130h12a6 6 0 0 1 6 6v10a6 6 0 0 1-6 6H18a6 6 0 0 1-6-6v-10a6 6 0 0 1 6-6h12ZM64 136a36 54 0 1 0 72 0a36 54 0 1 0-72 0ZM83 136a17 32 0 1 0 34 0a17 32 0 1 0-34 0Z"/></svg><svg class="wm" viewBox="0 -82 520 84" aria-hidden="true"><path fill="currentColor" d="M54.20-3.80L74.60-44.70L74.60-19.30L89.80-19.30L89.80-79.10C89.80-79.50 89.40-80 88.70-80L75.50-80C75.10-80 74.60-79.70 74.40-79.40L47.10-20.80L18.40-79.40C18.30-79.70 17.70-80 17.40-80L4-80C3.30-80 3-79.50 3-79.10L3-0.90C3-0.50 3.30 0 4 0L17.20 0C17.80 0 18.30-0.50 18.30-0.90L18.30-45.80L40-3.80C40.10-3.50 40.70-3.20 41-3.20L53.30-3.20C53.60-3.20 54.10-3.50 54.20-3.80ZM131.70-13.70L123.70-13.70L123.70-80L108.40-80L108.40-13.70L100.20-13.70C99.60-13.70 99.10-13.30 99.10-12.80L99.10-0.90C99.10-0.50 99.60 0 100.20 0L131.70 0C132.40 0 132.80-0.50 132.80-0.90L132.80-12.80C132.80-13.30 132.40-13.70 131.70-13.70ZM185.30-14.90L142.10-14.90L142.10-0.90C142.10-0.50 142.60 0 143.20 0L185.30 0C186 0 186.40-0.50 186.40-0.90L186.40-13.90C186.40-14.40 186-14.90 185.30-14.90ZM142.10-30.20L157.40-30.20L157.40-79.10C157.40-79.50 157-80 156.40-80L143.20-80C142.60-80 142.10-79.50 142.10-79.10ZM197.50 0L234.40 0L234.40-14.90L211.70-14.90L211.70-32.90L243.10-32.90C243.70-32.90 244.20-33.40 244.20-33.80L244.20-46.50C244.20-47 243.70-47.40 243.10-47.40L211.70-47.40L211.70-65.50L234.40-65.50L234.40-80L197.50-80C196.90-80 196.40-79.50 196.40-79.10L196.40-0.90C196.40-0.50 196.90 0 197.50 0ZM302.30-14.80L261.20-14.80L255.70-1.30C255.40-0.50 255.80 0 256.80 0L302.20 0C302.90 0 303.40-0.50 303.40-0.90L303.40-13.90C303.40-14.40 303-14.80 302.30-14.80ZM255.50-66.10C255.50-65.60 256.00-65.10 256.60-65.10L281.30-65.10L267.30-30.10L283.70-30.10L303.20-78.70C303.40-79.50 303-80 302.10-80L256.60-80C256.00-80 255.50-79.50 255.50-79.10ZM316.50 0L353.40 0L353.40-14.90L330.70-14.90L330.70-32.90L362.10-32.90C362.70-32.90 363.20-33.40 363.20-33.80L363.20-46.50C363.20-47 362.70-47.40 362.10-47.40L330.70-47.40L330.70-65.50L353.40-65.50L353.40-80L316.50-80C315.90-80 315.40-79.50 315.40-79.10L315.40-0.90C315.40-0.50 315.90 0 316.50 0ZM429.10-1.30C424.10-12.40 418.70-23.40 413.70-34.70C421.70-37.60 428.40-44 428.40-56.20C428.40-79.80 405.90-80 401.40-80L375.50-80C375-80 374.50-79.50 374.50-79.10L374.50-65.50L401.40-65.50C403.80-65.50 413.20-65 413.20-56.20C413.20-47.40 404.70-47 401.40-47L374.50-47L374.50-0.90C374.50-0.50 375 0 375.50 0L388.60 0C389.20 0 389.70-0.50 389.70-0.90L389.70-32.30L398.30-32.30L412.90-0.60C413-0.30 413.60 0 413.90 0L428.20 0C429 0 429.40-0.60 429.10-1.30ZM485.80-39.80C485.80-44 482.50-47.40 478.30-47.40C474.10-47.40 470.80-44 470.80-39.80C470.80-35.70 474.10-32.30 478.30-32.30C482.50-32.30 485.80-35.70 485.80-39.80ZM439.80-40.10C439.80-20.10 452.50 0 478.40 0C503.90 0 516.80-20.10 516.80-40.10C516.80-60 503.90-80 478.40-80C452.50-80 439.80-60 439.80-40.10ZM454.90-39.80C454.90-52.90 462.70-65.90 478.40-65.90C493.90-65.90 501.80-52.90 501.80-39.80C501.80-26.90 493.90-14 478.40-14C462.70-14 454.90-26.90 454.90-39.80Z"/></svg></a>
+      <nav aria-label="Legal"><a href="privacy/">Privacy statement</a><a href="cookies/">Cookie policy</a></nav>
+    </div>
+    <small>MileZero is a student project by the 4mobility team at Inholland University of Applied Sciences. It is not a company, and it is not affiliated with, endorsed by or connected to Uber or Bolt. Uber and Bolt are trademarks of their owners. This site sets no cookies and stores nothing in your browser. © 2026 4mobility.</small>
+  </div>
+</footer>
+<script src="main.js?v=1794215050"></script>
+</body>
+</html>
