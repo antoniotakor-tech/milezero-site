@@ -1,6 +1,10 @@
 /* MileZero landing: no cookies, no network calls. Stores one item: that the cookie notice was accepted. */
 (function () {
   'use strict';
+  /* Clickjacking guard: GitHub Pages can't send X-Frame-Options or a frame-ancestors header,
+     so this is the only available defence. If another site frames this page, break out of it. */
+  try { if (window.top !== window.self) { window.top.location = window.self.location.href; } } catch (e) { document.documentElement.style.display = 'none'; }
+
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
