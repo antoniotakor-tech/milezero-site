@@ -208,14 +208,6 @@ footer small{max-width:64em;line-height:1.6}
 .consent-actions a{font-size:14px;color:var(--white);text-underline-offset:3px}
 .consent .btn{min-height:42px;border:0;cursor:pointer}
 
-/* tyre tracks + car */
-.road{position:absolute;top:0;left:0;width:100%;height:0;z-index:1;pointer-events:none;overflow:visible}
-.tread path{fill:none;stroke:rgba(23,25,29,.35);stroke-dasharray:2 4.5}
-.tread.hot path{stroke:rgba(245,185,59,.45)}
-.car-body{filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
-.sm .car-body{transform:scale(.72)}
-.sm polygon{display:none}
-
 /* reveal */
 .rv{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
 .rv[data-from="left"]{transform:translateX(-90px)}
@@ -229,5 +221,4 @@ main{overflow-x:clip}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   .hero h1 .l>span{transform:none}.hero .fade,.rv,.rv[data-from]{opacity:1;transform:none}
   .nav.hide{transform:none}
-  #car,.tread.hot{display:none}
 }
