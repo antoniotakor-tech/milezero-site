@@ -18,6 +18,17 @@
 
   /* reveal on scroll */
   var rv = $$('.rv');
+  /* each section's content arrives from a different side: headings from the left,
+     the rest alternating right / left, every third item from below */
+  $$('main section').forEach(function (sec, si) {
+    $$('.rv', sec).forEach(function (el, i) {
+      var from;
+      if (/^H[1-3]$/.test(el.tagName) || el.classList.contains('eyebrow')) from = 'left';
+      else if (i % 3 === 2) from = 'bottom';
+      else from = (i + si) % 2 ? 'right' : 'left';
+      if (from !== 'bottom') el.setAttribute('data-from', from);
+    });
+  });
   if ('IntersectionObserver' in window && !reduce) {
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
@@ -97,7 +108,18 @@
     }
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
+  /* menu bar: hides while scrolling down, returns when scrolling up (always shown at the very top
+     and while keyboard focus is inside it) */
+  var lastY = window.scrollY;
+  function navVisibility() {
+    var y = window.scrollY, d = y - lastY;
+    if (y < 80 || nav.contains(document.activeElement)) nav.classList.remove('hide');
+    else if (d > 6) nav.classList.add('hide');
+    else if (d < -6) nav.classList.remove('hide');
+    if (Math.abs(d) > 6) lastY = y;
+  }
+  window.addEventListener('scroll', function () { onScroll(); navVisibility(); }, { passive: true });
+  nav.addEventListener('focusin', function () { nav.classList.remove('hide'); });
 
   /* try-the-rule calculator */
   var rf = $('#rFare'), rm = $('#rMin'), rl = $('#rLimit');
