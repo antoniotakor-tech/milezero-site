@@ -5,6 +5,7 @@
      so this is the only available defence. If another site frames this page, break out of it. */
   try { if (window.top !== window.self) { window.top.location = window.self.location.href; } } catch (e) { document.documentElement.style.display = 'none'; }
 
+  document.documentElement.classList.add('js');   /* content is only hidden for reveal when JS runs */
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -34,6 +35,7 @@
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
     rv.forEach(function (el) { io.observe(el); });
+    setTimeout(function () { rv.forEach(function (el) { el.classList.add('in'); }); }, 3500);   /* failsafe: nothing stays hidden */
   } else {
     rv.forEach(function (el) { el.classList.add('in'); });
   }
@@ -62,7 +64,7 @@
   /* verdict rule: fare / total minutes against the driver's own limit */
   function verdict(fare, mins, limit) {
     var pm = mins > 0 ? fare / mins : 0;
-    return { pm: pm, good: pm >= limit };
+    return { pm: pm, good: pm + 1e-9 >= limit };   /* at or above the limit is green */
   }
   var eur = function (n) { return '€' + n.toFixed(2).replace('.', ','); };
 

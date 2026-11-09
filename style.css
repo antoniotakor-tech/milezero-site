@@ -198,15 +198,15 @@ footer a{color:var(--white);text-underline-offset:4px}
 footer small{max-width:64em;line-height:1.6}
 
 /* cookie notice */
-.consent{position:fixed;right:16px;bottom:16px;z-index:80;width:min(440px,calc(100% - 32px));background:var(--night);color:var(--white);
-  border:1px solid var(--line);border-radius:14px;padding:20px 20px 16px;box-shadow:0 24px 60px -16px rgba(0,0,0,.7);
-  transform:translateY(calc(100% + 24px));opacity:0;transition:transform .5s var(--ease),opacity .5s var(--ease)}
+.consent{position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--night);color:var(--white);padding:12px var(--pad);
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;box-shadow:0 -10px 30px -14px rgba(0,0,0,.7);
+  transform:translateY(100%);opacity:0;transition:transform .5s var(--ease),opacity .5s var(--ease)}
 .consent.show{transform:none;opacity:1}
-.consent-title{margin:0 0 8px;font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
-.consent p{margin:0;font-size:15px;line-height:1.5;color:var(--mut)}
-.consent-actions{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:16px}
-.consent-actions a{font-size:14px;color:var(--white);text-underline-offset:3px}
-.consent .btn{min-height:42px;border:0;cursor:pointer}
+.consent-title{display:none}
+.consent p{margin:0;font-size:13.5px;line-height:1.45;color:var(--mut);flex:1 1 280px}
+.consent-actions{display:flex;align-items:center;gap:16px;margin:0}
+.consent-actions a{font-size:13px;color:var(--white);text-underline-offset:3px}
+.consent .btn{min-height:36px;padding:0 16px;font-size:13px;border:0;cursor:pointer}
 
 /* tyre tracks + car */
 .road{position:absolute;top:0;left:0;width:100%;height:0;z-index:1;pointer-events:none;overflow:visible}
@@ -217,11 +217,11 @@ footer small{max-width:64em;line-height:1.6}
 .sm polygon{display:none}
 
 /* reveal */
-.rv{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
-.rv[data-from="left"]{transform:translateX(-90px)}
-.rv[data-from="right"]{transform:translateX(90px)}
-.rv[data-from="top"]{transform:translateY(-40px)}
-.rv.in,.rv[data-from].in{opacity:1;transform:none}
+.js .rv{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
+.js .rv[data-from="left"]{transform:translateX(-90px)}
+.js .rv[data-from="right"]{transform:translateX(90px)}
+.js .rv[data-from="top"]{transform:translateY(-40px)}
+.js .rv.in,.js .rv[data-from].in{opacity:1;transform:none}
 main{overflow-x:clip}
 
 @media (prefers-reduced-motion:reduce){
@@ -249,3 +249,6 @@ button.brand{background:none;border:0;padding:0;margin:0;color:inherit;font:inhe
 .menu-side a:hover{color:var(--white)}
 body.menu-open{overflow:hidden}
 @media (max-width:700px){.menu-in{grid-template-columns:1fr}.menu-side{padding-top:24px}}
+
+/* gentler slide-in on small screens so nothing looks clipped at the edge */
+@media (max-width:700px){.js .rv[data-from="left"]{transform:translateX(-24px)}.js .rv[data-from="right"]{transform:translateX(24px)}}
