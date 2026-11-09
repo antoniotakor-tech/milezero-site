@@ -207,8 +207,8 @@ footer small{max-width:64em;line-height:1.6}
 
 /* tyre tracks + car */
 .road{position:absolute;top:0;left:0;width:100%;height:0;z-index:1;pointer-events:none;overflow:visible}
-.tread path{fill:none;stroke:transparent;stroke-dasharray:2 4.5}
-.tread.hot path{stroke:rgba(245,185,59,.4)}
+.tread path{fill:none;stroke:rgba(23,25,29,.35);stroke-dasharray:2 4.5}
+.tread.hot path{stroke:rgba(245,185,59,.45)}
 .car-body{filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
 .sm .car-body{transform:scale(.72)}
 .sm polygon{display:none}
