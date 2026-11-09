@@ -1,1 +1,6 @@
-Barlow Condensed, IBM Plex Sans and IBM Plex Mono are licensed under the SIL Open Font License 1.1 (https://openfontlicense.org). Files from @fontsource via jsDelivr.
+Fonts in this folder are unmodified files from @fontsource (via jsDelivr), licensed under the SIL Open Font License, Version 1.1.
+
+- Barlow Condensed: Copyright 2017 The Barlow Project Authors (https://github.com/jpt/barlow). Full licence: OFL-barlow.txt
+- IBM Plex Sans and IBM Plex Mono: Copyright 2018 IBM Corp. All rights reserved. Full licence: OFL-ibm-plex.txt
+
+The MILEZERO wordmark in the site's SVGs is outlined artwork, not a font file.

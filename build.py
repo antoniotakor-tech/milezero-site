@@ -91,9 +91,9 @@ open('cookies/index.html', 'w').write(c)
 # privacy page: this site is on GitHub Pages; link the cookie policy
 p = open('privacy/index.html').read()
 p = p.replace('The pages are hosted on Cloudflare Pages. Like any web host, it may',
-              'This website is hosted on GitHub Pages and the web demo on Cloudflare Pages. Like any web host, they may')
+              'This website is hosted on GitHub Pages (GitHub, Inc., United States) and the web demo on Cloudflare Pages. Like any web host, they may')
 p = p.replace('De pagina&rsquo;s staan op Cloudflare Pages. Zoals elke webhost kan die',
-              'Deze website staat op GitHub Pages en de webdemo op Cloudflare Pages. Zoals elke webhost kunnen die')
+              'Deze website staat op GitHub Pages (GitHub, Inc., Verenigde Staten) en de webdemo op Cloudflare Pages. Zoals elke webhost kunnen die')
 p = p.replace('<h2 id="cookies">5. Cookies and similar technologies</h2>',
               '<h2 id="cookies">5. Cookies and similar technologies</h2>\n<p>Full details are in the <a href="../cookies/">cookie policy</a>.</p>')
 p = p.replace('<h2>5. Cookies en vergelijkbare technieken</h2>',
