@@ -113,7 +113,7 @@
   var lastY = window.scrollY;
   function navVisibility() {
     var y = window.scrollY, d = y - lastY;
-    if (y < 80 || nav.contains(document.activeElement)) nav.classList.remove('hide');
+    if (y < 80 || nav.contains(document.activeElement) || document.body.classList.contains('menu-open')) nav.classList.remove('hide');
     else if (d > 6) nav.classList.add('hide');
     else if (d < -6) nav.classList.remove('hide');
     if (Math.abs(d) > 6) lastY = y;
@@ -160,6 +160,21 @@
       consent.classList.remove('show');
       setTimeout(function () { consent.hidden = true; }, reduce ? 0 : 500);
     });
+  }
+
+  /* logo: opens the full menu (everything that was in the bar, plus the other pages) */
+  var menuBtn = $('#menuBtn'), menu = $('#menuPanel');
+  if (menuBtn && menu) {
+    var setMenu = function (open) {
+      menu.hidden = !open;
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Close the menu' : 'Open the menu');
+      document.body.classList.toggle('menu-open', open);
+      if (open) nav.classList.remove('hide');
+    };
+    menuBtn.addEventListener('click', function () { setMenu(menu.hidden); });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a') || !e.target.closest('.menu-main, .menu-side')) setMenu(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !menu.hidden) { setMenu(false); menuBtn.focus(); } });
   }
 
   /* ===== tyre tracks + a car that drives down the page with the scroll ===== */
