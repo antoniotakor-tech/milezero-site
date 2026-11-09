@@ -50,9 +50,12 @@ h3{font-size:26px;font-weight:600;line-height:1;letter-spacing:.02em}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
 .stone{width:24px;height:29px;flex:none}
 .wm{height:18px;width:auto}
-.nav ul{display:flex;gap:32px;list-style:none;margin:0;padding:0}
-.nav ul a{text-decoration:none;font-size:15px;color:var(--mut)}
-.nav ul a:hover{color:var(--white)}
+.nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+.nav ul a{display:block;padding:9px 14px;border-radius:8px;text-decoration:none;font:500 14px/1 var(--body);
+  text-transform:uppercase;letter-spacing:.08em;color:var(--mut);transition:background .2s,color .2s}
+.nav ul a:hover,.nav ul a.active{background:var(--white);color:var(--night)}
+.nav .btn{text-transform:uppercase;letter-spacing:.08em;font-size:14px}
+.nav .btn:hover{background:var(--white);color:var(--night);filter:none}
 @media (max-width:820px){.nav ul{display:none}}
 
 .btn{display:inline-flex;align-items:center;min-height:46px;padding:0 22px;border-radius:10px;background:var(--blue);color:var(--white);
@@ -204,8 +207,8 @@ footer small{max-width:64em;line-height:1.6}
 
 /* tyre tracks + car */
 .road{position:absolute;top:0;left:0;width:100%;height:0;z-index:1;pointer-events:none;overflow:visible}
-.tread path{fill:none;stroke:rgba(23,25,29,.35);stroke-dasharray:2 4.5}
-.tread.hot path{stroke:rgba(245,185,59,.45)}
+.tread path{fill:none;stroke:transparent;stroke-dasharray:2 4.5}
+.tread.hot path{stroke:rgba(245,185,59,.4)}
 .car-body{filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
 .sm .car-body{transform:scale(.72)}
 .sm polygon{display:none}

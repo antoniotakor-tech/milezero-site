@@ -112,6 +112,18 @@
 
   var prog = null;
 
+  /* nav: highlight the link of the section on screen */
+  var navLinks = $$('.nav ul a');
+  if ('IntersectionObserver' in window && navLinks.length) {
+    var navIO = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        navLinks.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id); });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    $$('main section[id]').forEach(function (s) { navIO.observe(s); });
+  }
+
   /* cookie notice: shown until accepted. The only thing stored is that choice (strictly necessary). */
   var consent = $('#consent'), KEY = 'mz-cookie-notice-v1', seen = false;
   try { seen = !!localStorage.getItem(KEY); } catch (e) { seen = false; }
