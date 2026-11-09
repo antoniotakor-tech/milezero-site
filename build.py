@@ -56,6 +56,13 @@ csp = ("<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none
        "<meta name=\"referrer\" content=\"no-referrer\">\n<meta name=\"theme-color\"")
 s = s.replace('<meta name="theme-color"', csp, 1)
 s = s.replace('<link rel="icon" href="../icons/icon-192.png">', '<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">')
+s = s.replace('<title>MileZero privacy</title>',
+              '<title>MileZero privacy</title>\n'
+              '<link rel="canonical" href="https://antoniotakor-tech.github.io/milezero-site/privacy/">\n'
+              '<meta property="og:title" content="MileZero privacy statement">\n'
+              '<meta property="og:description" content="What MileZero reads, what it keeps, and what it sends. In full.">\n'
+              '<meta property="og:type" content="website">\n'
+              '<meta property="og:image" content="https://antoniotakor-tech.github.io/milezero-site/assets/og-image.png">')
 s = s.replace(' style="display:flex;flex-direction:column;gap:16px"', ' class="sec-l"')
 sc = re.search(r'<script>(.*?)</script>', s, re.S).group(1)
 sc = sc.replace('s.hidden = s.dataset.lang !== l; s.style.display = s.hidden ? "none" : "flex";', 's.hidden = s.dataset.lang !== l;')
@@ -73,15 +80,11 @@ s = s.replace('<h2>5. Cookies and similar technologies</h2>', '<h2 id="cookies">
 s = s.replace('Last updated 5 November 2026', 'Last updated 9 November 2026').replace('Laatst bijgewerkt op 5 november 2026', 'Laatst bijgewerkt op 9 november 2026')
 open('privacy/index.html', 'w').write(s)
 
-open('_headers', 'w').write("""/*
-  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: DENY
-  Referrer-Policy: no-referrer
-  Strict-Transport-Security: max-age=63072000; includeSubDomains
-  Cross-Origin-Opener-Policy: same-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=()
-""")
+# NOTE: deliberately no _headers file. GitHub Pages does not read it (that syntax is
+# Cloudflare/Netlify-specific) — a _headers file here would claim protections that are never
+# actually sent. Real equivalents are the <meta> CSP/referrer tags in each template, plus the
+# per-page frame-busting guard in main.js for the one protection meta tags can't provide.
+
 # ---- cookie policy page ----
 import os
 os.makedirs('cookies', exist_ok=True)

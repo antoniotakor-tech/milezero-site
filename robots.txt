@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /index.template.html
+Disallow: /cookies.template.html
+Disallow: /build.py
+Disallow: /assets/*.svg.txt
+
+Sitemap: https://antoniotakor-tech.github.io/milezero-site/sitemap.xml
