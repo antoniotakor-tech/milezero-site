@@ -162,4 +162,88 @@
       setTimeout(function () { consent.hidden = true; }, reduce ? 0 : 500);
     });
   }
+
+  /* ===== tyre tracks + a car that drives down the page with the scroll ===== */
+  var road = $('#road');
+  if (road && road.querySelector && $('#roadCentre').getTotalLength) {
+    var centre = $('#roadCentre'), tL = $('#trackL'), tR = $('#trackR'), hL = $('#hotL'), hR = $('#hotR');
+    var maskP = $('#maskPath'), hotP = $('#hotMaskPath'), car = $('#car');
+    var STEP = 6, HOT = 240, samples = [], total = 0, cur = 0, target = 0, raf = 0, built = false;
+
+    var build = function () {
+      road.style.height = '0px';
+      var W = document.documentElement.clientWidth, H = document.documentElement.scrollHeight;
+      road.style.height = H + 'px';
+      road.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+      ['mReveal', 'mHot'].forEach(function (id) {
+        var m = document.getElementById(id);
+        m.setAttribute('x', -100); m.setAttribute('y', -200); m.setAttribute('width', W + 200); m.setAttribute('height', H + 400);
+      });
+      var mob = W < 700, seg = Math.max(620, innerHeight * 0.85), xs = mob ? [0.12, 0.88] : [0.07, 0.93];
+      var x0 = W * 0.5, y0 = -80, d = 'M' + x0 + ' ' + y0, i = 0;
+      while (y0 < H + 60) {
+        var y1 = Math.min(y0 + (i === 0 ? seg * 0.8 : seg), H + 60), x1 = W * xs[i % 2], k = (y1 - y0) * 0.55;
+        d += ' C' + x0 + ' ' + (y0 + k) + ' ' + x1 + ' ' + (y1 - k) + ' ' + x1 + ' ' + y1;
+        x0 = x1; y0 = y1; i++;
+      }
+      centre.setAttribute('d', d);
+      total = centre.getTotalLength(); samples = [];
+      for (var l = 0; l <= total; l += STEP) { var p = centre.getPointAtLength(l); samples.push([p.x, p.y]); }
+      var off = mob ? 7 : 10, a = '', b = '';
+      for (var j = 0; j < samples.length; j++) {
+        var p0 = samples[Math.max(0, j - 1)], p1 = samples[Math.min(samples.length - 1, j + 1)];
+        var dx = p1[0] - p0[0], dy = p1[1] - p0[1], m2 = Math.hypot(dx, dy) || 1, nx = -dy / m2, ny = dx / m2, s = samples[j];
+        a += (j ? 'L' : 'M') + (s[0] + nx * off).toFixed(1) + ' ' + (s[1] + ny * off).toFixed(1);
+        b += (j ? 'L' : 'M') + (s[0] - nx * off).toFixed(1) + ' ' + (s[1] - ny * off).toFixed(1);
+      }
+      tL.setAttribute('d', a); hL.setAttribute('d', a); tR.setAttribute('d', b); hR.setAttribute('d', b);
+      [tL, tR, hL, hR].forEach(function (e) { e.setAttribute('stroke-width', mob ? 6 : 8); });
+      maskP.setAttribute('d', d); hotP.setAttribute('d', d);
+      maskP.setAttribute('stroke-dasharray', total + ' ' + total);
+      hotP.setAttribute('stroke-dasharray', HOT + ' ' + (total * 2));
+      car.setAttribute('class', mob ? 'sm' : '');
+      target = lenForScroll();
+      cur = reduce ? total : (built ? Math.min(cur, total) : 0);
+      built = true;
+      draw(); kick();
+    };
+
+    var lenForScroll = function () {
+      var y = window.scrollY + innerHeight * 0.6, lo = 0, hi = samples.length - 1;
+      while (lo < hi) { var mid = (lo + hi) >> 1; if (samples[mid][1] < y) lo = mid + 1; else hi = mid; }
+      return lo * STEP;
+    };
+
+    var draw = function () {
+      maskP.setAttribute('stroke-dashoffset', (total - cur).toFixed(1));
+      hotP.setAttribute('stroke-dashoffset', (-(cur - HOT)).toFixed(1));
+      var n = samples.length - 1, idx = Math.min(n, Math.max(0, Math.round(cur / STEP)));
+      var pa = samples[Math.max(0, idx - 2)], pb = samples[Math.min(n, idx + 2)], pt = samples[idx];
+      var ang = Math.atan2(pb[1] - pa[1], pb[0] - pa[0]) * 180 / Math.PI;
+      car.setAttribute('transform', 'translate(' + pt[0].toFixed(1) + ' ' + pt[1].toFixed(1) + ') rotate(' + ang.toFixed(1) + ')');
+    };
+
+    var tick = function () {
+      var diff = target - cur;
+      cur += diff * 0.07;
+      if (Math.abs(diff) < 0.6) cur = target;
+      draw();
+      raf = cur !== target ? requestAnimationFrame(tick) : 0;
+    };
+    var kick = function () { if (!reduce && !raf) raf = requestAnimationFrame(tick); };
+
+    window.addEventListener('scroll', function () {
+      if (prog) {
+        var max = document.documentElement.scrollHeight - innerHeight;
+        prog.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0).toFixed(4) + ')';
+      }
+      if (built) { target = lenForScroll(); kick(); }
+    }, { passive: true });
+
+    var t;
+    var rebuild = function () { clearTimeout(t); t = setTimeout(build, 180); };
+    window.addEventListener('resize', rebuild);
+    if ('ResizeObserver' in window) new ResizeObserver(rebuild).observe($('main'));
+    if (document.readyState === 'complete') build(); else window.addEventListener('load', build);
+  }
 })();
