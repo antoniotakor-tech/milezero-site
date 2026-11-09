@@ -252,3 +252,7 @@ body.menu-open{overflow:hidden}
 
 /* gentler slide-in on small screens so nothing looks clipped at the edge */
 @media (max-width:700px){.js .rv[data-from="left"]{transform:translateX(-24px)}.js .rv[data-from="right"]{transform:translateX(24px)}}
+
+/* grain: fine paper-like noise over the flat colours (a small local PNG, nothing external) */
+html::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;background-image:url("assets/grain.png");background-size:180px 180px;opacity:.2}
+@media print,(forced-colors:active){html::after{display:none}}
