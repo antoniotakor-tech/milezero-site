@@ -186,6 +186,17 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 24px}
 footer a{color:var(--white);text-underline-offset:4px}
 footer small{max-width:64em;line-height:1.6}
 
+/* cookie notice */
+.consent{position:fixed;right:16px;bottom:16px;z-index:80;width:min(440px,calc(100% - 32px));background:var(--night);color:var(--white);
+  border:1px solid var(--line);border-radius:14px;padding:20px 20px 16px;box-shadow:0 24px 60px -16px rgba(0,0,0,.7);
+  transform:translateY(calc(100% + 24px));opacity:0;transition:transform .5s var(--ease),opacity .5s var(--ease)}
+.consent.show{transform:none;opacity:1}
+.consent-title{margin:0 0 8px;font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.consent p{margin:0;font-size:15px;line-height:1.5;color:var(--mut)}
+.consent-actions{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:16px}
+.consent-actions a{font-size:14px;color:var(--white);text-underline-offset:3px}
+.consent .btn{min-height:42px;border:0;cursor:pointer}
+
 /* tyre tracks + car */
 .road{position:absolute;top:0;left:0;width:100%;height:0;z-index:1;pointer-events:none;overflow:visible}
 .tread path{fill:none;stroke:rgba(23,25,29,.35);stroke-dasharray:2 4.5}

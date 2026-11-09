@@ -62,13 +62,13 @@ sc = sc.replace('s.hidden = s.dataset.lang !== l; s.style.display = s.hidden ? "
 open('privacy/privacy.js', 'w').write(sc)
 s = re.sub(r'<script>.*?</script>', '<script src="privacy.js"></script>', s, flags=re.S)
 s = re.sub(r'<tr><td>Fonts</td>.*?</tr>',
-           '<tr><td>Fonts</td><td>None are downloaded. These pages use fonts already on your device, so no font provider receives your IP address.</td></tr>', s)
+           '<tr><td>Fonts</td><td>Served from this website itself. No font provider, such as Google Fonts, receives your IP address.</td></tr>', s)
 s = re.sub(r'<tr><td>Lettertypen</td>.*?</tr>',
-           '<tr><td>Lettertypen</td><td>Er wordt niets gedownload. Deze pagina&rsquo;s gebruiken lettertypen die al op je apparaat staan, dus geen lettertype-aanbieder ontvangt je IP-adres.</td></tr>', s)
+           '<tr><td>Lettertypen</td><td>Komen van deze website zelf. Geen lettertype-aanbieder, zoals Google Fonts, ontvangt je IP-adres.</td></tr>', s)
 s = s.replace('<tr><td>The web demo and these pages (milezero-e4k.pages.dev)</td>',
-              '<tr><td>The landing page and this page</td><td><b>No cookies and nothing in local storage.</b> They store nothing in your browser and make no calls to other servers. Because nothing is stored or read on your device, no cookie banner is needed.</td></tr>\n    <tr><td>The web demo (milezero-e4k.pages.dev)</td>')
+              '<tr><td>The landing page and this page</td><td><b>No cookies.</b> One item in your browser&rsquo;s local storage, <code>mz-cookie-notice-v1</code>, remembers that you accepted the cookie notice. No analytics and no calls to other servers. See the <a href="../cookies/">cookie policy</a>.</td></tr>\n    <tr><td>The web demo (milezero-e4k.pages.dev)</td>')
 s = s.replace('<tr><td>De webdemo en deze pagina&rsquo;s (milezero-e4k.pages.dev)</td>',
-              '<tr><td>De landingspagina en deze pagina</td><td><b>Geen cookies en niets in lokale opslag.</b> Ze slaan niets op in je browser en maken geen verbinding met andere servers. Omdat er niets op je apparaat wordt opgeslagen of uitgelezen, is geen cookiebanner nodig.</td></tr>\n    <tr><td>De webdemo (milezero-e4k.pages.dev)</td>')
+              '<tr><td>De landingspagina en deze pagina</td><td><b>Geen cookies.</b> Eén item in de lokale opslag van je browser, <code>mz-cookie-notice-v1</code>, onthoudt dat je de cookiemelding hebt geaccepteerd. Geen analyse en geen verbinding met andere servers. Zie het <a href="../cookies/">cookiebeleid</a>.</td></tr>\n    <tr><td>De webdemo (milezero-e4k.pages.dev)</td>')
 s = s.replace('<h2>5. Cookies and similar technologies</h2>', '<h2 id="cookies">5. Cookies and similar technologies</h2>')
 s = s.replace('Last updated 5 November 2026', 'Last updated 9 November 2026').replace('Laatst bijgewerkt op 5 november 2026', 'Laatst bijgewerkt op 9 november 2026')
 open('privacy/index.html', 'w').write(s)

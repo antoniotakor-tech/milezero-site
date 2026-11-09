@@ -1,4 +1,4 @@
-/* MileZero landing: no cookies, no storage, no network calls. */
+/* MileZero landing: no cookies, no network calls. Stores one item: that the cookie notice was accepted. */
 (function () {
   'use strict';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -111,6 +111,19 @@
   }
 
   var prog = null;
+
+  /* cookie notice: shown until accepted. The only thing stored is that choice (strictly necessary). */
+  var consent = $('#consent'), KEY = 'mz-cookie-notice-v1', seen = false;
+  try { seen = !!localStorage.getItem(KEY); } catch (e) { seen = false; }
+  if (consent && !seen) {
+    consent.hidden = false;
+    setTimeout(function () { consent.classList.add('show'); }, reduce ? 0 : 600);
+    $('#consentOk').addEventListener('click', function () {
+      try { localStorage.setItem(KEY, 'accepted ' + new Date().toISOString().slice(0, 10)); } catch (e) {}
+      consent.classList.remove('show');
+      setTimeout(function () { consent.hidden = true; }, reduce ? 0 : 500);
+    });
+  }
 
   /* ===== tyre tracks + a car that drives down the page with the scroll ===== */
   var road = $('#road');
