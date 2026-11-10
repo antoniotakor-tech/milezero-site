@@ -65,7 +65,7 @@ h3{font-size:26px;font-weight:600;line-height:1;letter-spacing:.02em}
 .btn:active{transform:translateY(1px)}
 .btn.ghost{background:transparent;box-shadow:inset 0 0 0 1.5px var(--line)}
 .btn.ghost:hover{box-shadow:inset 0 0 0 1.5px var(--mut);filter:none}
-@media (max-width:520px){.nav .btn{min-height:40px;padding:0 14px;font-size:14px}.wm{height:15px}}
+@media (max-width:520px){.nav .btn{min-height:44px;padding:0 14px;font-size:14px}.wm{height:15px}}
 
 /* hero: the page opens with MileZero's own band */
 .hero{padding:68px 0 clamp(80px,10vw,128px)}
@@ -142,8 +142,10 @@ h3{font-size:26px;font-weight:600;line-height:1;letter-spacing:.02em}
 .calc label div{display:flex;justify-content:space-between;font-size:15px}
 .calc label div span:first-child{color:var(--mut)}
 .calc label div span:last-child{font-family:var(--mono)}
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;background:rgba(244,246,248,.15);outline-offset:8px}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--white);cursor:grab}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;margin:0;outline-offset:2px}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:rgba(244,246,248,.15)}
+input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:rgba(244,246,248,.15)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;margin-top:-10px;width:24px;height:24px;border-radius:50%;background:var(--white);cursor:grab}
 input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--white);border:0;cursor:grab}
 .verdict{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 20px;background:var(--unk);transition:background .35s var(--ease),color .35s,box-shadow .35s}
 .verdict b{font:800 clamp(30px,3.4vw,42px)/1 var(--display);text-transform:uppercase;color:inherit}
@@ -195,7 +197,9 @@ footer .wrap{display:grid;gap:20px}
 footer .row{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between}
 footer nav{display:flex;flex-wrap:wrap;gap:8px 24px}
 footer a{color:var(--white);text-underline-offset:4px}
-footer small{max-width:64em;line-height:1.6}
+footer small{max-width:64em;line-height:1.6;font-size:13px}
+footer nav a{display:inline-flex;align-items:center;min-height:44px}
+.brand{min-height:44px}
 
 /* cookie notice */
 .consent{position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--night);color:var(--white);padding:12px var(--pad);
@@ -206,7 +210,7 @@ footer small{max-width:64em;line-height:1.6}
 .consent p{margin:0;font-size:13.5px;line-height:1.45;color:var(--mut);flex:1 1 280px}
 .consent-actions{display:flex;align-items:center;gap:16px;margin:0}
 .consent-actions a{font-size:13px;color:var(--white);text-underline-offset:3px}
-.consent .btn{min-height:36px;padding:0 16px;font-size:13px;border:0;cursor:pointer}
+.consent .btn{min-height:44px;padding:0 16px;font-size:13px;border:0;cursor:pointer}
 
 /* tyre tracks + car */
 .road{position:absolute;top:0;left:0;width:100%;height:0;z-index:1;pointer-events:none;overflow:visible}
@@ -255,4 +259,4 @@ body.menu-open{overflow:hidden}
 
 
 /* grain: fine paper-like noise on the flat background colours only (never on photos or screenshots). A small local PNG, nothing external. */
-body,.menu,footer,.band,.band.good,.band.bad{background-image:url("assets/grain-soft.png");background-size:180px 180px}
+body,.menu,footer{background-image:url("assets/grain-soft.png");background-size:180px 180px}
