@@ -88,6 +88,7 @@
     <div class="wrap band-in"><b id="bandWord">Reading</b><span id="bandInfo">…</span></div>
   </div>
   <div class="car" id="car" aria-roledescription="carousel" aria-label="MileZero in two screens">
+    <div class="car-stage"><div class="car-wipe" id="carWipe" aria-hidden="true"></div>
     <div class="car-track" id="carTrack" tabindex="0">
       <div class="car-slide on" id="slide1" role="group" aria-roledescription="slide" aria-label="1 of 2: the idea">
   <div class="wrap hero-grid">
@@ -117,10 +118,10 @@
         <div class="wrap rule">
         <div >
           <h2 class="rise d0">One sum, your limit.</h2>
-          <p class="formula rise d1">fare <em>÷</em> (pickup + trip minutes)</p>
-          <p class="lead rise d2">At or above your limit is green, below it is red. MileZero doesn’t guess your costs or fees, because the screen doesn’t show them.</p>
+          <p class="formula rs d1">fare <em>÷</em> (pickup + trip minutes)</p>
+          <p class="lead rs d2">At or above your limit is green, below it is red. MileZero doesn’t guess your costs or fees, because the screen doesn’t show them.</p>
         </div>
-        <div class="calc rise d3">
+        <div class="calc">
           <p class="calc-title">Try it</p>
           <label for="rFare"><div><span>Fare on the offer</span><span id="oFare">€22,00</span></div><input id="rFare" type="range" min="3" max="80" step="0.5" value="22"></label>
           <label for="rMin"><div><span>Pickup + trip</span><span id="oMin">40 min</span></div><input id="rMin" type="range" min="5" max="120" step="1" value="40"></label>
@@ -129,6 +130,7 @@
         </div>
         </div>
       </div>
+    </div>
     </div>
     <div class="wrap car-ui">
       <button class="car-btn" id="carPrev" type="button" aria-label="Previous screen">&#8592;</button>

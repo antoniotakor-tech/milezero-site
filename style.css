@@ -262,6 +262,7 @@ body.menu-open{overflow:hidden}
 body,.menu,footer{background-image:url("assets/grain-soft.png");background-size:180px 180px}
 
 /* hero carousel: swipe between the idea and the rule */
+.car-stage{position:relative;overflow:hidden;padding:0 0 8px;perspective:1600px}
 .car-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;outline:none}
 .car-track::-webkit-scrollbar{display:none}
 .car-slide{position:relative;z-index:2;flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;min-width:0;will-change:transform,opacity}
@@ -287,8 +288,19 @@ a.clink:hover{background:var(--gold);color:var(--night);transform:translateX(4px
 
 .hero h1 b{font-weight:inherit;transition:color .18s var(--ease);cursor:default}.hero h1 .hr:hover,.hero h1 .hr:active{color:var(--bad)}.hero h1 .hg:hover,.hero h1 .hg:active{color:var(--good)}@media (prefers-reduced-motion:reduce){.hero h1 b{transition:none}}
 
-/* carousel motion: content of the arriving slide rises in, one short stagger, transform + opacity only */
-.rise{opacity:0;transform:translateY(16px);transition:opacity .4s var(--ease),transform .4s var(--ease);transition-delay:80ms}.rise.d1{transition-delay:140ms}.rise.d2{transition-delay:200ms}.rise.d3{transition-delay:260ms}
-.car-slide.on .rise{opacity:1;transform:none}
-.car-slide:not(.on) .rise{transition-delay:0s;transition-duration:.15s}
-@media (prefers-reduced-motion:reduce){.rise{opacity:1;transform:none;transition:none}.car-dots button::after,.car-btn{transition:none}}
+/* carousel motion: scroll-linked 3D depth + parallax layers (JS), a colour wipe on button/dot moves, and an entrance on every arrival */
+.car-slide{transform-origin:50% 60%;backface-visibility:hidden}
+.car-slide .lyr{will-change:transform}
+.car-wipe{position:absolute;inset:0;z-index:6;pointer-events:none;background:var(--gold);transform:translate3d(-101%,0,0)}
+.car-wipe.run{animation:wipe .78s cubic-bezier(.76,0,.24,1) both}
+@keyframes wipe{0%{transform:translate3d(-101%,0,0)}45%,55%{transform:translate3d(0,0,0)}100%{transform:translate3d(101%,0,0)}}
+.car-wipe.run.back{animation-name:wipeb}
+@keyframes wipeb{0%{transform:translate3d(101%,0,0)}45%,55%{transform:translate3d(0,0,0)}100%{transform:translate3d(-101%,0,0)}}
+@keyframes rs{from{opacity:0;transform:translate3d(0,34px,0)}to{opacity:1;transform:none}}
+@keyframes ln{from{transform:translate3d(0,108%,0)}to{transform:none}}
+.car-slide.go .rs{animation:rs .7s cubic-bezier(.16,1,.3,1) both}
+.car-slide.go .rs.d1{animation-delay:.08s}.car-slide.go .rs.d2{animation-delay:.16s}
+.car-slide.go .hero-copy .fade{animation:rs .7s cubic-bezier(.16,1,.3,1) both}
+.car-slide.go h1 .l>span{animation:ln .8s cubic-bezier(.16,1,.3,1) both}
+.car-slide.go h1 .l:nth-child(2)>span{animation-delay:.09s}
+@media (prefers-reduced-motion:reduce){.car-wipe{display:none}.car-slide.go .rs,.car-slide.go h1 .l>span,.car-slide.go .hero-copy .fade{animation:none}.car-dots button::after,.car-btn{transition:none}}

@@ -268,30 +268,50 @@
 (function () {
   var track = document.getElementById('carTrack'); if (!track) return;
   var slides = [].slice.call(track.children), dots = [].slice.call(document.querySelectorAll('.car-dots button'));
+  var wipe = document.getElementById('carWipe');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches, cur = 0;
-  function go(i) { i = Math.max(0, Math.min(slides.length - 1, i)); track.scrollTo({ left: slides[i].offsetLeft, behavior: reduce ? 'auto' : 'smooth' }); }
+  var layers = slides.map(function (s) {
+    var A = [].slice.call(s.querySelectorAll('.hero-copy, .rule > div:first-child')), B = [].slice.call(s.querySelectorAll('.ticket, .calc'));
+    A.concat(B).forEach(function (e) { e.classList.add('lyr'); });
+    return { A: A, B: B };
+  });
+  function restart(s) { s.classList.remove('go'); void s.offsetWidth; s.classList.add('go'); }
+  function go(i, wiped) {
+    i = Math.max(0, Math.min(slides.length - 1, i)); if (i === cur && !wiped) return;
+    if (wiped && !reduce && wipe) { wipe.classList.remove('run', 'back'); void wipe.offsetWidth; if (i < cur) wipe.classList.add('back'); wipe.classList.add('run'); }
+    var behavior = reduce ? 'auto' : (wiped ? 'auto' : 'smooth');
+    var delay = wiped && !reduce ? 330 : 0;   /* jump while the wipe covers the screen */
+    setTimeout(function () { track.scrollTo({ left: slides[i].offsetLeft, behavior: behavior }); }, delay);
+  }
   function frame() {
     var w = track.clientWidth, x = track.scrollLeft;
     slides.forEach(function (s, i) {
-      var d = Math.min(1, Math.abs(x - s.offsetLeft) / w), dir = s.offsetLeft > x ? 1 : -1;
-      if (!reduce) { s.style.opacity = (1 - d * .85).toFixed(3); s.style.transform = 'translateX(' + (dir * d * 40).toFixed(1) + 'px) scale(' + (1 - d * .05).toFixed(3) + ')'; }
+      var p = (s.offsetLeft - x) / w, a = Math.min(1, Math.abs(p));
+      if (!reduce) {
+        s.style.opacity = (1 - a * .9).toFixed(3);
+        s.style.transform = 'rotateY(' + (-p * 24).toFixed(2) + 'deg) scale(' + (1 - a * .12).toFixed(3) + ')';
+        s.style.filter = a > .02 ? 'blur(' + (a * 7).toFixed(1) + 'px)' : 'none';
+        layers[i].A.forEach(function (e) { e.style.transform = 'translate3d(' + (-p * w * .16).toFixed(1) + 'px,0,0)'; });
+        layers[i].B.forEach(function (e) { e.style.transform = 'translate3d(' + (p * w * .2).toFixed(1) + 'px,0,0) rotate(' + (p * 3).toFixed(2) + 'deg)'; });
+      }
     });
     var n = Math.round(x / w);
-    if (n !== cur || !slides[n].classList.contains('on')) {
+    if (n !== cur) {
       cur = n;
-      slides.forEach(function (s, i) { s.classList.toggle('on', i === n); s.toggleAttribute('inert', i !== n); });
-      dots.forEach(function (d, i) { d.setAttribute('aria-selected', i === n ? 'true' : 'false'); });
+      slides.forEach(function (s, k) { s.classList.toggle('on', k === n); s.toggleAttribute('inert', k !== n); });
+      dots.forEach(function (d, k) { d.setAttribute('aria-selected', k === n ? 'true' : 'false'); });
+      if (!reduce) restart(slides[n]);
     }
   }
   var ticking = false;
   track.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; frame(); }); } }, { passive: true });
-  window.addEventListener('resize', function () { go(cur); frame(); });
-  dots.forEach(function (d) { d.addEventListener('click', function () { go(+d.dataset.i); }); });
-  document.getElementById('carPrev').addEventListener('click', function () { go(cur - 1); });
-  document.getElementById('carNext').addEventListener('click', function () { go(cur + 1); });
-  track.addEventListener('keydown', function (e) { if (e.target !== track) return; if (e.key === 'ArrowRight') { go(cur + 1); e.preventDefault(); } if (e.key === 'ArrowLeft') { go(cur - 1); e.preventDefault(); } });
+  window.addEventListener('resize', function () { track.scrollTo({ left: slides[cur].offsetLeft }); frame(); });
+  dots.forEach(function (d) { d.addEventListener('click', function () { go(+d.dataset.i, true); }); });
+  document.getElementById('carPrev').addEventListener('click', function () { go(cur - 1, true); });
+  document.getElementById('carNext').addEventListener('click', function () { go(cur + 1, true); });
+  track.addEventListener('keydown', function (e) { if (e.target !== track) return; if (e.key === 'ArrowRight') { go(cur + 1, true); e.preventDefault(); } if (e.key === 'ArrowLeft') { go(cur - 1, true); e.preventDefault(); } });
   [].forEach.call(document.querySelectorAll('a[data-slide]'), function (a) {
-    a.addEventListener('click', function () { var m = document.getElementById('menuBtn'); setTimeout(function () { document.getElementById('top').scrollIntoView(); go(+a.dataset.slide); }, 0); });
+    a.addEventListener('click', function () { setTimeout(function () { document.getElementById('top').scrollIntoView(); go(+a.dataset.slide, false); }, 0); });
   });
   frame();
 })();
