@@ -313,4 +313,10 @@ a.clink:hover{background:var(--gold);color:var(--night);transform:translateX(4px
 .phones img{display:block;width:100%;height:auto;border-radius:clamp(14px,2.2vw,26px);box-shadow:0 18px 40px rgba(0,0,0,.45)}
 .phones figcaption{margin-top:10px;text-align:center;font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
 .phones figure:nth-child(even){margin-top:clamp(10px,2.5vw,30px)}
-@media (max-width:640px){.phones{gap:8px}.phones figcaption{font-size:10px;letter-spacing:.06em}}
+@media (max-width:900px){
+  /* phones: one swipeable row of big pictures, so each one is readable */
+  .phones{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;margin:0 calc(var(--pad) * -1);padding:4px var(--pad) 10px;-webkit-overflow-scrolling:touch}
+  .phones::-webkit-scrollbar{display:none}
+  .phones figure{flex:0 0 62%;max-width:280px;scroll-snap-align:center;margin-top:0!important}
+  .phones figcaption{font-size:11px;letter-spacing:.1em}
+}
