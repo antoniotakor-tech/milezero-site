@@ -262,7 +262,7 @@ body.menu-open{overflow:hidden}
 body,.menu,footer{background-image:url("assets/grain-soft.png");background-size:180px 180px}
 
 /* hero carousel: swipe between the idea and the rule */
-.car-stage{position:relative;overflow:hidden;padding:0 0 8px;perspective:1600px}
+.car-stage{position:relative;z-index:2;overflow:hidden;padding:0 0 8px;perspective:1600px}
 .car-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;outline:none}
 .car-track::-webkit-scrollbar{display:none}
 .car-slide{position:relative;z-index:2;flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;min-width:0;will-change:transform,opacity}
