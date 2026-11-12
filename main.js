@@ -271,7 +271,7 @@
   var wipe = document.getElementById('carWipe');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches, cur = 0;
   var layers = slides.map(function (s) {
-    var A = [].slice.call(s.querySelectorAll('.hero-copy, .rule > div:first-child')), B = [].slice.call(s.querySelectorAll('.ticket, .calc'));
+    var A = [].slice.call(s.querySelectorAll('.hero-copy, .rule > div:first-child')), B = [].slice.call(s.querySelectorAll('.ticket, .calc, .phones'));
     A.concat(B).forEach(function (e) { e.classList.add('lyr'); });
     return { A: A, B: B };
   });

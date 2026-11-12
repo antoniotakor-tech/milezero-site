@@ -87,10 +87,10 @@
   <div class="band" id="band" aria-hidden="true">
     <div class="wrap band-in"><b id="bandWord">Reading</b><span id="bandInfo">…</span></div>
   </div>
-  <div class="car" id="car" aria-roledescription="carousel" aria-label="MileZero in two screens">
+  <div class="car" id="car" aria-roledescription="carousel" aria-label="MileZero in three screens">
     <div class="car-stage"><div class="car-wipe" id="carWipe" aria-hidden="true"></div>
     <div class="car-track" id="carTrack" tabindex="0">
-      <div class="car-slide on" id="slide1" role="group" aria-roledescription="slide" aria-label="1 of 2: the idea">
+      <div class="car-slide on" id="slide1" role="group" aria-roledescription="slide" aria-label="1 of 3: the idea">
   <div class="wrap hero-grid">
         <div class="hero-copy">
           <p class="eyebrow fade">For Uber and Bolt drivers in Amsterdam</p>
@@ -114,7 +114,7 @@
         </aside>
       </div>
       </div>
-      <div class="car-slide" id="slide2" role="group" aria-roledescription="slide" aria-label="2 of 2: try the rule">
+      <div class="car-slide" id="slide2" role="group" aria-roledescription="slide" aria-label="2 of 3: try the rule">
         <div class="wrap rule">
         <div >
           <h2 class="rise d0">One sum, your limit.</h2>
@@ -130,6 +130,19 @@
         </div>
         </div>
       </div>
+      <div class="car-slide" id="slide3" role="group" aria-roledescription="slide" aria-label="3 of 3: the app on a ride">
+        <div class="wrap rule app-slide">
+        <div>
+          <h2 class="rise d0">On the ride, not after it.</h2>
+          <p class="lead rs d2">The band comes down over Uber or Bolt the moment an offer shows. Tap it for the sum behind the colour. Pictures are from the app on an iPhone, with simulated rides.</p>
+        </div>
+        <div class="phones">
+          <figure><img src="assets/app/ride-good.webp" width="540" height="1174" loading="lazy" alt="A simulated Uber offer of 24,10 euro with a green MileZero band on top saying good ride, 0,75 euro per minute"><figcaption>Good ride</figcaption></figure>
+          <figure><img src="assets/app/ride-bad.webp" width="540" height="1174" loading="lazy" alt="A simulated Uber offer of 5,20 euro with a red MileZero band on top saying bad ride, 0,35 euro per minute"><figcaption>Bad ride</figcaption></figure>
+          <figure><img src="assets/app/info.webp" width="540" height="1174" loading="lazy" alt="The MileZero info card: 0,75 euro per minute, with ride, pickup, fare and total time"><figcaption>Tap for the sum</figcaption></figure>
+        </div>
+        </div>
+      </div>
     </div>
     </div>
     <div class="wrap car-ui">
@@ -137,6 +150,7 @@
       <div class="car-dots" role="tablist" aria-label="Choose a screen">
         <button type="button" role="tab" aria-selected="true" aria-label="Screen 1, the idea" data-i="0"></button>
         <button type="button" role="tab" aria-selected="false" aria-label="Screen 2, try the rule" data-i="1"></button>
+        <button type="button" role="tab" aria-selected="false" aria-label="Screen 3, the app on a ride" data-i="2"></button>
       </div>
       <button class="car-btn" id="carNext" type="button" aria-label="Next screen">&#8594;</button>
     </div>

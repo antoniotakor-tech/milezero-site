@@ -304,3 +304,12 @@ a.clink:hover{background:var(--gold);color:var(--night);transform:translateX(4px
 .car-slide.go h1 .l>span{animation:ln .8s cubic-bezier(.16,1,.3,1) both}
 .car-slide.go h1 .l:nth-child(2)>span{animation-delay:.09s}
 @media (prefers-reduced-motion:reduce){.car-wipe{display:none}.car-slide.go .rs,.car-slide.go h1 .l>span,.car-slide.go .hero-copy .fade{animation:none}.car-dots button::after,.car-btn{transition:none}}
+
+/* carousel slide 3: simulated-ride phone pictures */
+.app-slide{align-items:center}
+.phones{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,2vw,22px);align-items:start}
+.phones figure{margin:0}
+.phones img{display:block;width:100%;height:auto;border-radius:clamp(14px,2.2vw,26px);box-shadow:0 18px 40px rgba(0,0,0,.45)}
+.phones figcaption{margin-top:10px;text-align:center;font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.phones figure:nth-child(2){margin-top:clamp(12px,3vw,36px)}
+@media (max-width:640px){.phones{gap:8px}.phones figcaption{font-size:10px;letter-spacing:.06em}}
