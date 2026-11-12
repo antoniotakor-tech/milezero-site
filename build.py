@@ -27,7 +27,7 @@ t = t.replace('href="style.css"', 'href="style.css?v=' + v + '"').replace('src="
 open('index.html', 'w').write(t)
 
 open('assets/icon.svg', 'w').write(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><rect width="240" height="240" rx="52" fill="#3a3d43"/>'
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><rect width="240" height="240" rx="52" fill="#545454"/>'
     '<g transform="translate(20 0)"><path fill="#f4f6f8" fill-rule="evenodd" d="%s"/></g></svg>' % path)
 
 j = open('main.js').read()

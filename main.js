@@ -263,3 +263,35 @@
     if (document.readyState === 'complete') build(); else window.addEventListener('load', build);
   }
 })();
+
+/* hero carousel */
+(function () {
+  var track = document.getElementById('carTrack'); if (!track) return;
+  var slides = [].slice.call(track.children), dots = [].slice.call(document.querySelectorAll('.car-dots button'));
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches, cur = 0;
+  function go(i) { i = Math.max(0, Math.min(slides.length - 1, i)); track.scrollTo({ left: slides[i].offsetLeft, behavior: reduce ? 'auto' : 'smooth' }); }
+  function frame() {
+    var w = track.clientWidth, x = track.scrollLeft;
+    slides.forEach(function (s, i) {
+      var d = Math.min(1, Math.abs(x - s.offsetLeft) / w), dir = s.offsetLeft > x ? 1 : -1;
+      if (!reduce) { s.style.opacity = (1 - d * .85).toFixed(3); s.style.transform = 'translateX(' + (dir * d * 40).toFixed(1) + 'px) scale(' + (1 - d * .05).toFixed(3) + ')'; }
+    });
+    var n = Math.round(x / w);
+    if (n !== cur || !slides[n].classList.contains('on')) {
+      cur = n;
+      slides.forEach(function (s, i) { s.classList.toggle('on', i === n); s.toggleAttribute('inert', i !== n); });
+      dots.forEach(function (d, i) { d.setAttribute('aria-selected', i === n ? 'true' : 'false'); });
+    }
+  }
+  var ticking = false;
+  track.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; frame(); }); } }, { passive: true });
+  window.addEventListener('resize', function () { go(cur); frame(); });
+  dots.forEach(function (d) { d.addEventListener('click', function () { go(+d.dataset.i); }); });
+  document.getElementById('carPrev').addEventListener('click', function () { go(cur - 1); });
+  document.getElementById('carNext').addEventListener('click', function () { go(cur + 1); });
+  track.addEventListener('keydown', function (e) { if (e.target !== track) return; if (e.key === 'ArrowRight') { go(cur + 1); e.preventDefault(); } if (e.key === 'ArrowLeft') { go(cur - 1); e.preventDefault(); } });
+  [].forEach.call(document.querySelectorAll('a[data-slide]'), function (a) {
+    a.addEventListener('click', function () { var m = document.getElementById('menuBtn'); setTimeout(function () { document.getElementById('top').scrollIntoView(); go(+a.dataset.slide); }, 0); });
+  });
+  frame();
+})();

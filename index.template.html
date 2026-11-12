@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'">
 <meta name="referrer" content="no-referrer">
-<meta name="theme-color" content="#3a3d43">
+<meta name="theme-color" content="#545454">
 <title>MileZero: red or green before you tap</title>
 <meta name="description" content="MileZero reads the ride offer on your own phone and turns it red or green against your own limit. Nothing leaves your phone.">
 <link rel="canonical" href="https://antoniotakor-tech.github.io/milezero-site/">
@@ -32,7 +32,7 @@
   <defs>
     <mask id="mReveal" maskUnits="userSpaceOnUse"><path id="maskPath" fill="none" stroke="#fff" stroke-width="70" stroke-linecap="round"/></mask>
     <mask id="mHot" maskUnits="userSpaceOnUse"><path id="hotMaskPath" fill="none" stroke="#fff" stroke-width="70"/></mask>
-    <linearGradient id="beam" x1="0" x2="1"><stop offset="0" stop-color="#f5b93b" stop-opacity=".45"/><stop offset="1" stop-color="#f5b93b" stop-opacity="0"/></linearGradient>
+    <linearGradient id="beam" x1="0" x2="1"><stop offset="0" stop-color="#ffde59" stop-opacity=".45"/><stop offset="1" stop-color="#ffde59" stop-opacity="0"/></linearGradient>
   </defs>
   <path id="roadCentre" fill="none" stroke="none"/>
   <g class="tread" mask="url(#mReveal)"><path id="trackL"/><path id="trackR"/></g>
@@ -40,11 +40,11 @@
   <g id="car"><g class="car-body">
     <polygon points="22,-9 150,-52 150,52 22,9" fill="url(#beam)"/>
     <rect x="-24" y="-13" width="48" height="26" rx="8" fill="#f4f6f8"/>
-    <rect x="-10" y="-10" width="21" height="20" rx="4" fill="#3a3d43"/>
-    <rect x="12" y="-10" width="6" height="20" rx="2" fill="#17191d"/>
-    <rect x="-3" y="-4" width="7" height="8" rx="1.5" fill="#f5b93b"/>
+    <rect x="-10" y="-10" width="21" height="20" rx="4" fill="#545454"/>
+    <rect x="12" y="-10" width="6" height="20" rx="2" fill="#2b2b2b"/>
+    <rect x="-3" y="-4" width="7" height="8" rx="1.5" fill="#ffde59"/>
     <circle cx="22" cy="-8" r="2.4" fill="#fff6dc"/><circle cx="22" cy="8" r="2.4" fill="#fff6dc"/>
-    <rect x="-25" y="-11" width="3" height="5" rx="1" fill="#f0532d"/><rect x="-25" y="6" width="3" height="5" rx="1" fill="#f0532d"/>
+    <rect x="-25" y="-11" width="3" height="5" rx="1" fill="#FF0000"/><rect x="-25" y="6" width="3" height="5" rx="1" fill="#FF0000"/>
   </g></g>
 </svg>
 
@@ -53,7 +53,7 @@
     <button class="brand" type="button" id="menuBtn" aria-expanded="false" aria-controls="menuPanel" aria-label="Open the menu">{{STONE}}{{WM}}</button>
     <ul>
       <li><a href="#how">How it works</a></li>
-      <li><a href="#rule">The rule</a></li>
+      <li><a href="#slide2" data-slide="1">The rule</a></li>
       <li><a href="#privacy">Privacy</a></li>
       <li><a href="#team">Team</a></li>
     </ul>
@@ -67,7 +67,7 @@
       <a href="#top">Top</a>
       <a href="#problem">The problem</a>
       <a href="#how">How it works</a>
-      <a href="#rule">The rule</a>
+      <a href="#slide2" data-slide="1">The rule</a>
       <a href="#privacy">Privacy</a>
       <a href="#status">Where we are</a>
       <a href="#vision">Why we built it</a>
@@ -87,27 +87,57 @@
   <div class="band" id="band" aria-hidden="true">
     <div class="wrap band-in"><b id="bandWord">Reading</b><span id="bandInfo">…</span></div>
   </div>
+  <div class="car" id="car" aria-roledescription="carousel" aria-label="MileZero in two screens">
+    <div class="car-track" id="carTrack" tabindex="0">
+      <div class="car-slide on" id="slide1" role="group" aria-roledescription="slide" aria-label="1 of 2: the idea">
   <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <p class="eyebrow fade">For Uber and Bolt drivers in Amsterdam</p>
-      <h1><span class="l"><span>Red or green,</span></span><span class="l"><span><em>before you tap.</em></span></span></h1>
-      <p class="lead fade">You get about ten seconds to accept a ride. MileZero reads the offer on your own phone and checks it against the limit you set. Good rides turn green, bad rides turn red. You decide.</p>
-      <div class="cta fade">
-        <a class="btn" href="#how">How it works</a>
-        <a class="btn ghost" href="#privacy">What it reads</a>
+        <div class="hero-copy">
+          <p class="eyebrow fade">For Uber and Bolt drivers in Amsterdam</p>
+          <h1><span class="l"><span>Red or green,</span></span><span class="l"><span><em>before you tap.</em></span></span></h1>
+          <p class="lead fade">You get about ten seconds to accept a ride. MileZero reads the offer on your own phone and checks it against the limit you set. Good rides turn green, bad rides turn red. You decide.</p>
+          <div class="cta fade">
+            <a class="btn" href="#how">How it works</a>
+            <a class="btn ghost" href="#privacy">What it reads</a>
+          </div>
+        </div>
+        <aside class="ticket fade" aria-label="Example ride offer that the band above is judging">
+          <div class="ticket-top"><span id="app">UberX</span><span>Example offer</span></div>
+          <div class="fare" id="fare">€54,56</div>
+          <div class="timer"><i id="timer"></i></div>
+          <dl>
+            <div><dt>Pickup</dt><dd id="pick">9 min</dd></div>
+            <div><dt>Trip</dt><dd id="trip">57 min</dd></div>
+            <div class="tot"><dt>Total time</dt><dd id="tot">66 min</dd></div>
+            <div><dt>Your limit</dt><dd>€0,50 / min</dd></div>
+          </dl>
+        </aside>
+      </div>
+      </div>
+      <div class="car-slide" id="slide2" role="group" aria-roledescription="slide" aria-label="2 of 2: try the rule">
+        <div class="wrap rule">
+        <div >
+          <h2>One sum, your limit.</h2>
+          <p class="formula">fare <em>÷</em> (pickup + trip minutes)</p>
+          <p class="lead">At or above your limit is green, below it is red. MileZero doesn’t guess your costs or fees, because the screen doesn’t show them.</p>
+        </div>
+        <div class="calc">
+          <p class="calc-title">Try it</p>
+          <label for="rFare"><div><span>Fare on the offer</span><span id="oFare">€22,00</span></div><input id="rFare" type="range" min="3" max="80" step="0.5" value="22"></label>
+          <label for="rMin"><div><span>Pickup + trip</span><span id="oMin">40 min</span></div><input id="rMin" type="range" min="5" max="120" step="1" value="40"></label>
+          <label for="rLimit"><div><span>Your limit</span><span id="oLimit">€0,50 / min</span></div><input id="rLimit" type="range" min="20" max="100" step="1" value="50"></label>
+          <div class="verdict" id="verdict" role="status" aria-live="polite"><b id="vWord">Good ride</b><span id="vInfo"></span></div>
+        </div>
+        </div>
       </div>
     </div>
-    <aside class="ticket fade" aria-label="Example ride offer that the band above is judging">
-      <div class="ticket-top"><span id="app">UberX</span><span>Example offer</span></div>
-      <div class="fare" id="fare">€54,56</div>
-      <div class="timer"><i id="timer"></i></div>
-      <dl>
-        <div><dt>Pickup</dt><dd id="pick">9 min</dd></div>
-        <div><dt>Trip</dt><dd id="trip">57 min</dd></div>
-        <div class="tot"><dt>Total time</dt><dd id="tot">66 min</dd></div>
-        <div><dt>Your limit</dt><dd>€0,50 / min</dd></div>
-      </dl>
-    </aside>
+    <div class="wrap car-ui">
+      <button class="car-btn" id="carPrev" type="button" aria-label="Previous screen">&#8592;</button>
+      <div class="car-dots" role="tablist" aria-label="Choose a screen">
+        <button type="button" role="tab" aria-selected="true" aria-label="Screen 1, the idea" data-i="0"></button>
+        <button type="button" role="tab" aria-selected="false" aria-label="Screen 2, try the rule" data-i="1"></button>
+      </div>
+      <button class="car-btn" id="carNext" type="button" aria-label="Next screen">&#8594;</button>
+    </div>
   </div>
 </section>
 
@@ -134,23 +164,6 @@
       <li class="rv" data-d=".1s"><span class="stop">2</span><h3>An offer comes in</h3><p>MileZero reads the fare, the pickup time and the trip time. Each screen picture is thrown away right after.</p></li>
       <li class="rv" data-d=".2s"><span class="stop">3</span><h3>The band answers</h3><p>A band at the top of your screen says <b>Good ride</b> or <b>Bad ride</b>. MileZero never taps for you.</p></li>
     </ol>
-  </div>
-</section>
-
-<section class="sec" id="rule">
-  <div class="wrap rule">
-    <div class="rv">
-      <h2>One sum, your limit.</h2>
-      <p class="formula">fare <em>÷</em> (pickup + trip minutes)</p>
-      <p class="lead">At or above your limit is green, below it is red. MileZero doesn’t guess your costs or fees, because the screen doesn’t show them.</p>
-    </div>
-    <div class="calc rv" data-d=".1s">
-      <p class="calc-title">Try it</p>
-      <label for="rFare"><div><span>Fare on the offer</span><span id="oFare">€22,00</span></div><input id="rFare" type="range" min="3" max="80" step="0.5" value="22"></label>
-      <label for="rMin"><div><span>Pickup + trip</span><span id="oMin">40 min</span></div><input id="rMin" type="range" min="5" max="120" step="1" value="40"></label>
-      <label for="rLimit"><div><span>Your limit</span><span id="oLimit">€0,50 / min</span></div><input id="rLimit" type="range" min="20" max="100" step="1" value="50"></label>
-      <div class="verdict" id="verdict" role="status" aria-live="polite"><b id="vWord">Good ride</b><span id="vInfo"></span></div>
-    </div>
   </div>
 </section>
 
@@ -205,6 +218,14 @@
     <h2>Drive in Amsterdam? Test it with us.</h2>
     <p class="lead">We’re looking for Uber and Bolt drivers for the next test round. Send us a message and we’ll get back to you.</p>
     <a class="btn" href="mailto:antoniotakor@icloud.com?subject=MileZero%20test%20round&amp;body=Hi%20MileZero%20team%2C%0A%0AI%27d%20like%20to%20join%20the%20test%20round.%0A%0AMy%20name%3A%20%0AMy%20city%3A%20%0A">Message the team</a>
+    <ul class="clinks" aria-label="Find us">
+      <li><a class="clink" href="mailto:antoniotakor@icloud.com?subject=MileZero%20test%20round&amp;body=Hi%20MileZero%20team%2C%0A%0AI%27d%20like%20to%20join%20the%20test%20round.%0A%0AMy%20name%3A%20%0AMy%20city%3A%20%0A"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v12H3zM3 7l9 7 9-7"/></svg><span>Email</span></a></li>
+      <li><a class="clink" href="https://github.com/antoniotakor-tech/milezero-site"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .4.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg><span>GitHub</span></a></li>
+      <li><span class="clink off" aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M4.5 3a1.8 1.8 0 1 1 0 3.6 1.8 1.8 0 0 1 0-3.6zM3 8.5h3V21H3zM9 8.5h2.9v1.7c.5-.9 1.7-2 3.6-2 3.4 0 4 2.2 4 5.1V21h-3v-6.7c0-1.6 0-3.3-2-3.3s-2.4 1.4-2.4 3.2V21H9z"/></svg><span>LinkedIn</span><em>Soon</em></span></li>
+      <li><span class="clink off" aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM17.2 6.8h.01"/></svg><span>Instagram</span><em>Soon</em></span></li>
+      <li><span class="clink off" aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M14 3h3a5 5 0 0 0 4 4v3a8 8 0 0 1-4-1.2V15a6 6 0 1 1-6-6v3.2a3 3 0 1 0 3 2.8z"/></svg><span>TikTok</span><em>Soon</em></span></li>
+      <li><span class="clink off" aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1c.4-1.2.4-3.8.4-3.8s0-2.6-.4-3.8zM10 15V9l5 3z"/></svg><span>YouTube</span><em>Soon</em></span></li>
+    </ul>
   </div>
 </section>
 </main>
