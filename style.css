@@ -264,16 +264,16 @@ body,.menu,footer{background-image:url("assets/grain-soft.png");background-size:
 /* hero carousel: swipe between the idea and the rule */
 .car-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;outline:none}
 .car-track::-webkit-scrollbar{display:none}
-.car-slide{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;min-width:0;will-change:transform,opacity}
+.car-slide{position:relative;z-index:2;flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;min-width:0;will-change:transform,opacity}
 .car-slide .hero-grid,.car-slide .rule{margin-top:clamp(48px,7vw,96px)}
 .car-slide:not(.on){pointer-events:none}
 .car-ui{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:clamp(28px,4vw,48px)}
-.car-btn{width:48px;height:48px;border:0;border-radius:50%;background:var(--night);color:var(--white);font:500 20px var(--body);cursor:pointer;transition:background .25s,color .25s,transform .25s var(--ease)}
+.car-btn{width:48px;height:48px;border:0;border-radius:50%;background:var(--night);color:var(--white);font:500 20px var(--body);cursor:pointer;transition:background .18s,color .18s,transform .18s var(--ease)}
 .car-btn:hover{background:var(--gold);color:var(--night)}
 .car-btn:active{transform:scale(.94)}
 .car-dots{display:flex;gap:6px}
 .car-dots button{width:44px;height:44px;border:0;background:transparent;cursor:pointer;position:relative}
-.car-dots button::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;border-radius:5px;background:var(--mut);opacity:.5;transition:width .4s var(--ease),margin .4s var(--ease),background .3s,opacity .3s}
+.car-dots button::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;border-radius:5px;background:var(--mut);opacity:.5;transition:width .22s var(--ease),margin .22s var(--ease),background .18s,opacity .18s}
 .car-dots button[aria-selected=true]::after{width:30px;margin-left:-15px;background:var(--gold);opacity:1}
 :focus-visible{outline-color:var(--gold)}
 
@@ -284,3 +284,11 @@ body,.menu,footer{background-image:url("assets/grain-soft.png");background-size:
 .clink em{margin-left:auto;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
 a.clink:hover{background:var(--gold);color:var(--night);transform:translateX(4px)}
 .clink.off{opacity:.55;cursor:default}
+
+.hero h1 b{font-weight:inherit;transition:color .18s var(--ease);cursor:default}.hero h1 .hr:hover,.hero h1 .hr:active{color:var(--bad)}.hero h1 .hg:hover,.hero h1 .hg:active{color:var(--good)}@media (prefers-reduced-motion:reduce){.hero h1 b{transition:none}}
+
+/* carousel motion: content of the arriving slide rises in, one short stagger, transform + opacity only */
+.rise{opacity:0;transform:translateY(16px);transition:opacity .4s var(--ease),transform .4s var(--ease);transition-delay:80ms}.rise.d1{transition-delay:140ms}.rise.d2{transition-delay:200ms}.rise.d3{transition-delay:260ms}
+.car-slide.on .rise{opacity:1;transform:none}
+.car-slide:not(.on) .rise{transition-delay:0s;transition-duration:.15s}
+@media (prefers-reduced-motion:reduce){.rise{opacity:1;transform:none;transition:none}.car-dots button::after,.car-btn{transition:none}}
