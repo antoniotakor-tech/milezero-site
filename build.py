@@ -37,6 +37,8 @@ if "data-d" not in j:
 
 # ---- privacy page, derived from the web app's statement ----
 s = open('../milezero-web/privacy/index.html').read()
+s = s.replace('Uber and Bolt have their own driver terms','Gig ride apps have their own driver terms').replace('Uber en Bolt hebben eigen voorwaarden','Gig-ritapps hebben eigen voorwaarden')
+s = s.replace('Uber, Bolt and their rules','Ride apps and their rules').replace('Uber, Bolt en hun regels','Ritapps en hun regels')
 css = re.search(r'<style>(.*?)</style>', s, re.S).group(1)
 css = css.replace('--display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif',
                   '--display:"Barlow Condensed","Avenir Next Condensed","DIN Condensed","Arial Narrow",system-ui,sans-serif')

@@ -72,10 +72,10 @@
   var band = $('#band'), bandWord = $('#bandWord'), bandInfo = $('#bandInfo');
   var fareEl = $('#fare'), pickEl = $('#pick'), tripEl = $('#trip'), totEl = $('#tot'), appEl = $('#app'), timer = $('#timer');
   var offers = [
-    { app: 'UberX', fare: 54.56, pick: 9, trip: 57 },
-    { app: 'Bolt', fare: 6.20, pick: 8, trip: 14 },
-    { app: 'UberX', fare: 14.80, pick: 5, trip: 21 },
-    { app: 'Bolt', fare: 11.90, pick: 6, trip: 19 }
+    { app: 'Ride app', fare: 54.56, pick: 9, trip: 57 },
+    { app: 'Ride app', fare: 6.20, pick: 8, trip: 14 },
+    { app: 'Ride app', fare: 14.80, pick: 5, trip: 21 },
+    { app: 'Ride app', fare: 11.90, pick: 6, trip: 19 }
   ];
   var LIMIT = 0.50, idx = 0, timers = [], visible = true;
   function later(fn, ms) { timers.push(setTimeout(fn, ms)); }

@@ -1,7 +1,7 @@
 {
   "name": "MileZero",
   "short_name": "MileZero",
-  "description": "Red or green, before you tap. A ride check for Uber and Bolt drivers.",
+  "description": "Red or green, before you tap. A ride check for gig ride app drivers.",
   "start_url": "./",
   "scope": "./",
   "display": "browser",
