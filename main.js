@@ -184,7 +184,7 @@
   if (road && road.querySelector && $('#roadCentre').getTotalLength) {
     var centre = $('#roadCentre'), tL = $('#trackL'), tR = $('#trackR'), hL = $('#hotL'), hR = $('#hotR');
     var maskP = $('#maskPath'), hotP = $('#hotMaskPath'), car = $('#car');
-    var STEP = 6, HOT = 240, samples = [], total = 0, cur = 0, target = 0, raf = 0, built = false;
+    var STEP = (window.innerWidth < 700 ? 12 : 6), HOT = 240, samples = [], total = 0, cur = 0, target = 0, raf = 0, built = false;
 
     var build = function () {
       road.style.height = '0px';
@@ -195,7 +195,7 @@
         var m = document.getElementById(id);
         m.setAttribute('x', -100); m.setAttribute('y', -200); m.setAttribute('width', W + 200); m.setAttribute('height', H + 400);
       });
-      var mob = W < 700, seg = Math.max(620, innerHeight * 0.85), xs = mob ? [0.12, 0.88] : [0.07, 0.93];
+      var mob = W < 700, seg = Math.max(620, (mob ? 760 : innerHeight * 0.85)), xs = mob ? [0.07, 0.93] : [0.07, 0.93];
       var x0 = W * 0.5, y0 = -80, d = 'M' + x0 + ' ' + y0, i = 0;
       while (y0 < H + 60) {
         var y1 = Math.min(y0 + (i === 0 ? seg * 0.8 : seg), H + 60), x1 = W * xs[i % 2], k = (y1 - y0) * 0.55;
@@ -256,8 +256,12 @@
       if (built) { target = lenForScroll(); kick(); }
     }, { passive: true });
 
-    var t;
-    var rebuild = function () { clearTimeout(t); t = setTimeout(build, 180); };
+    var t, lastW = document.documentElement.clientWidth, lastH = document.documentElement.scrollHeight;
+    var rebuild = function () {
+      var w = document.documentElement.clientWidth, h = document.documentElement.scrollHeight;
+      if (w === lastW && Math.abs(h - lastH) < 40) return;   /* Safari's toolbar changes innerHeight while scrolling: ignore */
+      lastW = w; lastH = h; clearTimeout(t); t = setTimeout(build, 180);
+    };
     window.addEventListener('resize', rebuild);
     if ('ResizeObserver' in window) new ResizeObserver(rebuild).observe($('main'));
     if (document.readyState === 'complete') build(); else window.addEventListener('load', build);
@@ -270,6 +274,7 @@
   var slides = [].slice.call(track.children), dots = [].slice.call(document.querySelectorAll('.car-dots button'));
   var wipe = document.getElementById('carWipe');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches, cur = 0;
+  var phone = window.matchMedia('(max-width: 700px)').matches;
   var layers = slides.map(function (s) {
     var A = [].slice.call(s.querySelectorAll('.hero-copy, .rule > div:first-child')), B = [].slice.call(s.querySelectorAll('.ticket, .calc, .phones'));
     A.concat(B).forEach(function (e) { e.classList.add('lyr'); });
@@ -289,10 +294,13 @@
       var p = (s.offsetLeft - x) / w, a = Math.min(1, Math.abs(p));
       if (!reduce) {
         s.style.opacity = (1 - a * .9).toFixed(3);
+        if (phone) { s.style.transform = 'none'; s.style.filter = 'none'; }
+        else {
         s.style.transform = 'rotateY(' + (-p * 24).toFixed(2) + 'deg) scale(' + (1 - a * .12).toFixed(3) + ')';
         s.style.filter = a > .02 ? 'blur(' + (a * 7).toFixed(1) + 'px)' : 'none';
-        layers[i].A.forEach(function (e) { e.style.transform = 'translate3d(' + (-p * w * .16).toFixed(1) + 'px,0,0)'; });
-        layers[i].B.forEach(function (e) { e.style.transform = 'translate3d(' + (p * w * .2).toFixed(1) + 'px,0,0) rotate(' + (p * 3).toFixed(2) + 'deg)'; });
+        }
+        if (!phone) layers[i].A.forEach(function (e) { e.style.transform = 'translate3d(' + (-p * w * .16).toFixed(1) + 'px,0,0)'; });
+        if (!phone) layers[i].B.forEach(function (e) { e.style.transform = 'translate3d(' + (p * w * .2).toFixed(1) + 'px,0,0) rotate(' + (p * 3).toFixed(2) + 'deg)'; });
       }
     });
     var n = Math.round(x / w);

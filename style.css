@@ -320,3 +320,59 @@ a.clink:hover{background:var(--gold);color:var(--night);transform:translateX(4px
   .phones figure{flex:0 0 62%;max-width:280px;scroll-snap-align:center;margin-top:0!important}
   .phones figcaption{font-size:11px;letter-spacing:.1em}
 }
+
+
+/* ===== iPhone / touch pass ===== */
+html{-webkit-tap-highlight-color:transparent}
+a,button,summary,.btn,input{touch-action:manipulation}
+@supports (padding:max(0px)){
+  .wrap{width:min(100% - 2*max(var(--pad),env(safe-area-inset-left),env(safe-area-inset-right)),var(--max))}
+  .consent{padding-bottom:max(12px,env(safe-area-inset-bottom))}
+  footer{padding-bottom:max(52px,calc(env(safe-area-inset-bottom) + 24px))}
+  .menu{padding-bottom:max(32px,env(safe-area-inset-bottom))}
+}
+.menu{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+
+/* no sticky hover on touch: hover colours only where a real pointer exists */
+@media (hover:none){
+  .btn:hover{filter:none}
+  .btn.ghost:hover{box-shadow:inset 0 0 0 1.5px var(--line)}
+  .nav .btn:hover{background:var(--blue);color:#2b2b2b}
+  .nav ul a:hover{background:transparent;color:var(--mut)}
+  .menu-main a:hover{background:transparent;color:var(--white)}
+  .menu-main a.menu-cta:hover{color:var(--gold)}
+  .menu-side a:hover{color:var(--mut)}
+  .car-btn:hover{background:var(--night);color:var(--white)}
+  a.clink:hover{background:#3a3a3a;color:var(--white);transform:none}
+  .hero h1 .hr:hover{color:inherit}.hero h1 .hg:hover{color:inherit}
+}
+
+@media (max-width:700px){
+  /* the carousel swipes with plain slide + fade: no 3D tilt, no blur (both stutter on iPhone) */
+  .car-stage{perspective:none}
+  .car-slide{will-change:auto;backface-visibility:visible}
+  .car-slide .lyr{will-change:auto}
+  /* lighter surfaces */
+  .car-body{filter:none}
+  .phones img{box-shadow:0 10px 24px rgba(0,0,0,.4)}
+  .band.good,.band.bad{box-shadow:none}
+  .verdict.good,.verdict.bad{box-shadow:none}
+  body,.menu,footer{background-size:140px 140px}
+  /* hero: tighter, band reads at a glance */
+  .hero{padding-top:64px}
+  .band-in{min-height:92px}
+  .band b{font-size:clamp(44px,13vw,64px)}
+  .band span{font-size:13px}
+  .hero-grid,.car-slide .hero-grid,.car-slide .rule{margin-top:36px}
+  .hero .cta .btn{flex:1 1 140px;justify-content:center}
+  .sec{padding:72px 0}
+  .final{padding:80px 0}
+  .eyebrow{margin-bottom:16px}
+  .fare{font-size:56px}
+  .phones figcaption{font-size:12px}
+  /* cookie notice: slim, doesn't eat the screen */
+  .consent{padding-top:10px;gap:8px 14px}
+  .consent p{flex:1 1 100%;font-size:13px;line-height:1.4}
+  .consent-actions{width:100%;justify-content:space-between}
+  .consent .btn{padding:0 22px}
+}
