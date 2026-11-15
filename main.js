@@ -181,7 +181,8 @@
 
   /* ===== tyre tracks + a car that drives down the page with the scroll ===== */
   var road = $('#road');
-  if (road && road.querySelector && $('#roadCentre').getTotalLength) {
+  var touchRoad = window.matchMedia('(pointer: coarse), (max-width: 700px)').matches;   /* phones and tablets use the lighter road below */
+  if (road && road.querySelector && $('#roadCentre').getTotalLength && !touchRoad) {
     var centre = $('#roadCentre'), tL = $('#trackL'), tR = $('#trackR'), hL = $('#hotL'), hR = $('#hotR');
     var maskP = $('#maskPath'), hotP = $('#hotMaskPath'), car = $('#car');
     var STEP = (window.innerWidth < 700 ? 12 : 6), HOT = 240, samples = [], total = 0, cur = 0, target = 0, raf = 0, built = false, fx = false, vbW = 0, vbH = 0;
@@ -327,4 +328,96 @@
     a.addEventListener('click', function () { setTimeout(function () { document.getElementById('top').scrollIntoView(); go(+a.dataset.slide, false); }, 0); });
   });
   frame();
+})();
+
+/* tyre tracks + car for touch screens: no masks, no per-frame SVG redraws.
+   The tracks are static small pieces that fade in as the car passes; only the car moves, with one GPU transform per frame. */
+(function () {
+  if (!window.matchMedia('(pointer: coarse), (max-width: 700px)').matches) return;
+  var road = document.getElementById('road'); if (!road) return;
+  var centre = document.getElementById('roadCentre'), carG = document.getElementById('car');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var carMarkup = carG.innerHTML.replace(/<polygon[^>]*>/, '');
+  road.classList.add('off');
+  var layer = document.createElement('div'); layer.className = 'roadm'; layer.setAttribute('aria-hidden', 'true');
+  road.parentNode.insertBefore(layer, road.nextSibling);
+  var STEP = 10, CH = 8, samples = [], starts = [], chunks = [], carEl = null;
+  var cur = 0, target = 0, raf = 0, last = 0, shown = 0, built = false, lastW = 0, lastH = 0;
+
+  function lenForScroll() {
+    var y = window.scrollY + document.documentElement.clientHeight * 0.6, lo = 0, hi = samples.length - 1;
+    while (lo < hi) { var mid = (lo + hi) >> 1; if (samples[mid][1] < y) lo = mid + 1; else hi = mid; }
+    return lo * STEP;
+  }
+  function build() {
+    layer.style.height = '0px';
+    var W = document.documentElement.clientWidth, H = document.documentElement.scrollHeight;
+    lastW = W; lastH = H; layer.style.height = H + 'px';
+    var seg = 760, xs = [0.07, 0.93], x0 = W * 0.5, y0 = -80, d = 'M' + x0 + ' ' + y0, i = 0;
+    while (y0 < H + 60) {
+      var y1 = Math.min(y0 + (i === 0 ? seg * 0.8 : seg), H + 60), x1 = W * xs[i % 2], k = (y1 - y0) * 0.55;
+      d += ' C' + x0 + ' ' + (y0 + k) + ' ' + x1 + ' ' + (y1 - k) + ' ' + x1 + ' ' + y1;
+      x0 = x1; y0 = y1; i++;
+    }
+    centre.setAttribute('d', d);
+    var total = centre.getTotalLength(); samples = [];
+    for (var l = 0; l <= total; l += STEP) { var p = centre.getPointAtLength(l); samples.push([p.x, p.y]); }
+    var off = 7, n = samples.length, html = '';
+    function side(i0, i1, sign) {
+      var o = '';
+      for (var j = i0; j <= i1; j++) {
+        var a = samples[Math.max(0, j - 1)], b = samples[Math.min(n - 1, j + 1)], dx = b[0] - a[0], dy = b[1] - a[1], m = Math.hypot(dx, dy) || 1, sj = samples[j];
+        o += (j === i0 ? 'M' : 'L') + (sj[0] + sign * (-dy / m) * off).toFixed(1) + ' ' + (sj[1] + sign * (dx / m) * off).toFixed(1);
+      }
+      return o;
+    }
+    starts = [];
+    for (var c = 0; c * CH < n - 1; c++) {
+      var i0 = c * CH, i1 = Math.min(n - 1, i0 + CH), top = Math.floor(samples[i0][1]) - 14, bot = Math.ceil(samples[i1][1]) + 14;
+      if (top > bot) { var tmp = top; top = bot - 28; bot = tmp + 28; }
+      var h = bot - top;
+      html += '<svg class="tc' + (reduce ? ' on' : '') + '" style="top:' + top + 'px;height:' + h + 'px" width="' + W + '" height="' + h + '" viewBox="0 ' + top + ' ' + W + ' ' + h + '"><path d="' + side(i0, i1, 1) + '"/><path d="' + side(i0, i1, -1) + '"/></svg>';
+      starts.push(i0 * STEP);
+    }
+    layer.innerHTML = html;
+    chunks = [].slice.call(layer.children);
+    if (!reduce) {
+      carEl = document.createElement('div'); carEl.className = 'mcar';
+      carEl.innerHTML = '<svg width="64" height="40" viewBox="-32 -20 64 40"><g transform="scale(.8)">' + carMarkup + '</g></svg>';
+      layer.appendChild(carEl);
+    }
+    shown = 0;
+    target = lenForScroll(); cur = built ? Math.min(cur, (n - 1) * STEP) : target; built = true;
+    render(); kick();
+  }
+  function render() {
+    var n = samples.length - 1, idx = Math.min(n, Math.max(0, Math.round(cur / STEP)));
+    if (carEl) {
+      var pa = samples[Math.max(0, idx - 2)], pb = samples[Math.min(n, idx + 2)], pt = samples[idx];
+      var ang = Math.atan2(pb[1] - pa[1], pb[0] - pa[0]) * 180 / Math.PI;
+      carEl.style.transform = 'translate3d(' + pt[0].toFixed(1) + 'px,' + pt[1].toFixed(1) + 'px,0) rotate(' + ang.toFixed(1) + 'deg)';
+    }
+    if (reduce) return;
+    while (shown < chunks.length && starts[shown] <= cur) { chunks[shown].classList.add('on'); shown++; }
+    while (shown > 0 && starts[shown - 1] > cur) { shown--; chunks[shown].classList.remove('on'); }
+  }
+  function tick(t) {
+    var dt = Math.min(48, last ? t - last : 16); last = t;
+    var diff = target - cur;
+    cur += diff * (1 - Math.exp(-dt / 130));   /* same feel at 60 and 120 Hz */
+    if (Math.abs(target - cur) < 0.5) cur = target;
+    render();
+    if (cur !== target) raf = requestAnimationFrame(tick); else { raf = 0; last = 0; }
+  }
+  function kick() { if (!reduce && !raf) raf = requestAnimationFrame(tick); }
+  window.addEventListener('scroll', function () { if (built) { target = lenForScroll(); kick(); } }, { passive: true });
+  var t;
+  function maybeRebuild() {
+    var w = document.documentElement.clientWidth, h = document.documentElement.scrollHeight;
+    if (w === lastW && Math.abs(h - lastH) < 40) return;   /* Safari's toolbar moves innerHeight while scrolling: ignore */
+    clearTimeout(t); t = setTimeout(build, 200);
+  }
+  window.addEventListener('resize', maybeRebuild);
+  if ('ResizeObserver' in window) new ResizeObserver(maybeRebuild).observe(document.querySelector('main'));
+  if (document.readyState === 'complete') build(); else window.addEventListener('load', build);
 })();

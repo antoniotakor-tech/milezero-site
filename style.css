@@ -380,3 +380,14 @@ a,button,summary,.btn,input{touch-action:manipulation}
 /* phones: the road is a fixed viewport-sized layer (its viewBox follows the scroll in main.js) */
 .road.fx{position:fixed;top:0;left:0;will-change:transform;contain:strict}
 .road.fx .tread.hot{display:none}
+
+/* touch road: static tyre-track pieces + one GPU-moved car */
+.road.off{position:absolute;width:0;height:0;visibility:hidden;overflow:hidden}
+.roadm{position:absolute;top:0;left:0;width:100%;z-index:1;pointer-events:none;overflow:hidden}
+.tc{position:absolute;left:0;display:block;max-width:none;opacity:0;transition:opacity .45s ease-out}
+.tc.on{opacity:1}
+.tc path{fill:none;stroke:rgba(23,25,29,.35);stroke-width:6;stroke-dasharray:2 4.5}
+.mcar{position:absolute;left:-32px;top:-20px;width:64px;height:40px;will-change:transform;transform:translate3d(-100px,-100px,0)}
+.mcar svg{overflow:visible}
+@media (prefers-reduced-motion:reduce){.tc{transition:none}}
+.mcar .car-body{filter:none}
