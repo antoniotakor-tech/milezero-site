@@ -376,3 +376,7 @@ a,button,summary,.btn,input{touch-action:manipulation}
   .consent-actions{width:100%;justify-content:space-between}
   .consent .btn{padding:0 22px}
 }
+
+/* phones: the road is a fixed viewport-sized layer (its viewBox follows the scroll in main.js) */
+.road.fx{position:fixed;top:0;left:0;will-change:transform;contain:strict}
+.road.fx .tread.hot{display:none}

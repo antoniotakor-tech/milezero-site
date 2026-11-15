@@ -184,13 +184,17 @@
   if (road && road.querySelector && $('#roadCentre').getTotalLength) {
     var centre = $('#roadCentre'), tL = $('#trackL'), tR = $('#trackR'), hL = $('#hotL'), hR = $('#hotR');
     var maskP = $('#maskPath'), hotP = $('#hotMaskPath'), car = $('#car');
-    var STEP = (window.innerWidth < 700 ? 12 : 6), HOT = 240, samples = [], total = 0, cur = 0, target = 0, raf = 0, built = false;
+    var STEP = (window.innerWidth < 700 ? 12 : 6), HOT = 240, samples = [], total = 0, cur = 0, target = 0, raf = 0, built = false, fx = false, vbW = 0, vbH = 0;
+    var setView = function () { road.setAttribute('viewBox', '0 ' + window.scrollY.toFixed(1) + ' ' + vbW + ' ' + vbH); };
 
     var build = function () {
-      road.style.height = '0px';
+      road.classList.remove('fx'); road.style.height = '0px';
       var W = document.documentElement.clientWidth, H = document.documentElement.scrollHeight;
-      road.style.height = H + 'px';
-      road.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+      /* phones: the road is a viewport-sized fixed layer and only its viewBox slides with the scroll,
+         so Safari never rasterises a 6000px-tall masked SVG on every frame */
+      fx = W < 700; vbW = W; vbH = innerHeight + 160;
+      if (fx) { road.classList.add('fx'); road.style.height = vbH + 'px'; setView(); }
+      else { road.style.height = H + 'px'; road.setAttribute('viewBox', '0 0 ' + W + ' ' + H); }
       ['mReveal', 'mHot'].forEach(function (id) {
         var m = document.getElementById(id);
         m.setAttribute('x', -100); m.setAttribute('y', -200); m.setAttribute('width', W + 200); m.setAttribute('height', H + 400);
@@ -253,6 +257,7 @@
         var max = document.documentElement.scrollHeight - innerHeight;
         prog.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0).toFixed(4) + ')';
       }
+      if (fx) setView();
       if (built) { target = lenForScroll(); kick(); }
     }, { passive: true });
 
