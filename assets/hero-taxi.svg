@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 760" preserveAspectRatio="xMaxYMax slice">
+<rect width="1600" height="760" fill="#3b3b3b"/>
+<!-- Amsterdam canal houses -->
+<g fill="#2f2f2f">
+<path d="M0 560V300h110l-20-40 30-30 30 30-20 40h60V560z"/>
+<path d="M210 560V240h96l-8-50h40l-8 50h96V560z"/>
+<path d="M440 560V330h120l-60-70-60 70z"/>
+<path d="M600 560V270h90l15-35h40l15 35h90V560z"/>
+<path d="M835 560V350h130l-14-45h-102z"/>
+<path d="M1000 560V250h100l-10-55h44l-10 55h100V560z"/>
+<path d="M1250 560V320h110l-55-60-55 60z"/>
+<path d="M1390 560V280h210V560z"/>
+</g>
+<g fill="#ffde59" opacity=".35">
+<rect x="1030" y="300" width="22" height="30"/><rect x="1068" y="300" width="22" height="30"/><rect x="1030" y="380" width="22" height="30"/>
+<rect x="1420" y="330" width="22" height="30"/><rect x="1490" y="410" width="22" height="30"/><rect x="1270" y="370" width="22" height="30"/>
+<rect x="880" y="400" width="22" height="30"/><rect x="740" y="330" width="22" height="30"/>
+</g>
+<!-- road -->
+<rect y="560" width="1600" height="200" fill="#262626"/>
+<rect y="560" width="1600" height="10" fill="#4a4a4a"/>
+<g fill="#6e6e6e"><rect x="60" y="690" width="140" height="10"/><rect x="340" y="690" width="140" height="10"/><rect x="620" y="690" width="140" height="10"/></g>
+<!-- speed lines -->
+<g transform="translate(210 0)" stroke="#e2e2e2" stroke-width="5" stroke-linecap="round" opacity=".3">
+<path d="M520 540H790"/><path d="M420 590H760"/><path d="M600 640H830"/><path d="M360 500H700" opacity=".6"/>
+</g>
+<!-- taxi, driving right -->
+<g transform="translate(210 -4)">
+<ellipse cx="1060" cy="672" rx="330" ry="14" fill="#000" opacity=".35"/>
+<!-- headlight beam -->
+<polygon points="1370,560 1600,500 1600,640" fill="#ffde59" opacity=".18"/>
+<!-- body -->
+<path d="M760 640V560Q760 520 800 516L900 508 960 440Q972 426 990 426H1170Q1190 426 1204 440L1270 508 1340 520Q1380 528 1380 566V640Z" fill="#ffde59"/>
+<path d="M760 600H1380V640H760Z" fill="#e0bd3a"/>
+<!-- window with driver -->
+<path d="M980 450H1166Q1178 450 1186 460L1236 508H940Z" fill="#1d2630"/>
+<path d="M1105 508V496Q1105 470 1128 470Q1150 470 1150 496V508Z" fill="#0d1319"/>
+<circle cx="1128" cy="458" r="21" fill="#0d1319"/>
+<path d="M1090 508Q1096 484 1116 478L1146 480Q1166 486 1170 508Z" fill="#0d1319"/>
+<path d="M1160 494L1198 484" stroke="#0d1319" stroke-width="9" stroke-linecap="round"/>
+<ellipse cx="1206" cy="484" rx="14" ry="22" fill="#2b2b2b" transform="rotate(-24 1206 484)"/>
+<path d="M1010 450L1030 508" stroke="#3b4756" stroke-width="5"/>
+<!-- door line, handle -->
+<path d="M1090 516V630" stroke="#c9a52d" stroke-width="4"/>
+<rect x="1100" y="534" width="40" height="8" rx="4" fill="#c9a52d"/>
+<!-- roof sign -->
+<rect x="1042" y="396" width="108" height="34" rx="8" fill="#fff"/>
+<rect x="1054" y="428" width="84" height="6" fill="#2b2b2b"/>
+<text x="1096" y="421" text-anchor="middle" font-family="Arial Narrow,Arial,sans-serif" font-weight="800" font-size="21" fill="#2b2b2b">MileZero</text>
+<!-- lights -->
+<rect x="1360" y="552" width="22" height="26" rx="6" fill="#fff6dc"/>
+<rect x="758" y="552" width="12" height="30" rx="4" fill="#ff0000"/>
+<!-- wheels -->
+<circle cx="880" cy="644" r="52" fill="#141414"/><circle cx="880" cy="644" r="24" fill="#6e6e6e"/><circle cx="880" cy="644" r="8" fill="#141414"/>
+<circle cx="1262" cy="644" r="52" fill="#141414"/><circle cx="1262" cy="644" r="24" fill="#6e6e6e"/><circle cx="1262" cy="644" r="8" fill="#141414"/>
+</g>
+</svg>

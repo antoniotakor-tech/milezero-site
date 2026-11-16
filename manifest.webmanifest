@@ -1,7 +1,7 @@
 {
   "name": "MileZero",
   "short_name": "MileZero",
-  "description": "Red or green, before you tap. A ride check for gig ride app drivers.",
+  "description": "Profitable or not, before you accept. A ride check for online taxi drivers.",
   "start_url": "./",
   "scope": "./",
   "display": "browser",
