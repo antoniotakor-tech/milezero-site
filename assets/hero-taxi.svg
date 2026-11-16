@@ -344,12 +344,11 @@
 <!-- door line, handle -->
 <rect x="1230" y="530" width="40" height="8" rx="4" fill="#c9a52d"/>
 <text x="1070" y="592" text-anchor="middle" font-family="Arial Narrow,Arial,sans-serif" font-weight="800" font-size="50" fill="#2b2b2b">MileZero</text>
-<!-- roof sign, three-quarter view: long face with text, front end facing the way the car drives -->
-<rect x="1030" y="424" width="14" height="10" fill="#1c1c1c"/><rect x="1118" y="424" width="14" height="10" fill="#1c1c1c"/>
-<path d="M1014 394Q1006 394 1006 402V420Q1006 428 1014 428H1132V390H1014Z" fill="#fff"/>
-<path d="M1132 390L1156 398Q1160 400 1160 406V424Q1160 428 1156 430L1132 428Z" fill="#c9c9c9"/>
-<path d="M1140 398L1152 402V420L1140 418Z" fill="#ffde59"/>
-<text x="1069" y="416" text-anchor="middle" font-family="Arial Narrow,Arial,sans-serif" font-weight="800" font-size="22" fill="#2b2b2b">MileZero</text>
+<!-- roof sign, plain side view: lamp on the roof, no text -->
+<rect x="1040" y="424" width="12" height="10" fill="#1c1c1c"/><rect x="1108" y="424" width="12" height="10" fill="#1c1c1c"/>
+<path d="M1034 402Q1034 396 1040 396H1124Q1134 396 1138 404L1142 414Q1144 426 1134 426H1040Q1034 426 1034 420Z" fill="#f4f6f8"/>
+<path d="M1124 400L1134 406L1138 416H1124Z" fill="#ffde59"/>
+<rect x="1042" y="408" width="70" height="6" rx="3" fill="#cfd3d8"/>
 <!-- lights -->
 <rect x="1360" y="552" width="22" height="26" rx="6" fill="#fff6dc"/>
 <rect x="758" y="552" width="12" height="30" rx="4" fill="#ff0000"/>
