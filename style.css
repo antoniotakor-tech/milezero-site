@@ -494,3 +494,15 @@ footer .cab b{font-size:22px}
   #slide1 .hero-copy{padding-bottom:clamp(120px,20vh,190px)!important}
 }
 :root{--mono:var(--body)}
+
+/* 2026-11-16 (3): phones: text, then the taxi scene, then the button under the car */
+@media (max-width:900px){
+  #slide1::before{display:none!important}
+  #slide1 .hero-copy{display:flex;flex-direction:column;padding-bottom:0!important}
+  #slide1 .hero-copy>*{position:relative;z-index:1}
+  #slide1 .hero-copy .eyebrow{order:0}#slide1 .hero-copy h1{order:1}#slide1 .hero-copy .lead{order:2}
+  #slide1 .hero-copy .scene{display:block!important;width:auto;order:3;z-index:0;margin:-56px calc(-1*var(--pad)) 0;aspect-ratio:auto;max-height:none;height:clamp(190px,30vh,250px);border-radius:0;box-shadow:none;
+    background:url(assets/hero-taxi.svg?v=9) 100% 100%/auto 135% no-repeat;opacity:.9;
+    -webkit-mask-image:linear-gradient(to bottom,transparent,#000 38%);mask-image:linear-gradient(to bottom,transparent,#000 38%)}
+  #slide1 .hero-copy .getcard{order:4;margin-top:12px}
+}
