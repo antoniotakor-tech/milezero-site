@@ -411,3 +411,4 @@ footer .cab b{font-size:22px}
 @media (max-width:520px){.cab b{font-size:19px;padding:6px 12px 5px}.btn.big{width:100%;justify-content:center}.store{flex:1 1 150px}.store span{font-size:17px}}
 @media (max-width:900px){#slide1::before{background-size:210% auto;background-position:80% 64%;opacity:.3}}
 @media (max-width:900px){#slide1::before{display:none}#slide1 .hero-copy::after{content:"";display:block;height:clamp(170px,46vw,330px);margin:32px calc(-1*var(--pad)) 0;background:url(assets/hero-taxi.svg?v=3) right bottom/cover no-repeat}}
+.hero .eyebrow{font-size:clamp(16px,2.6vw,28px);font-weight:600;line-height:1.2;margin-bottom:26px}
