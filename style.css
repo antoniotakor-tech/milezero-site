@@ -459,3 +459,9 @@ footer .cab b{font-size:22px}
 @media (max-width:600px){.consent{padding:10px 16px}.consent p{font-size:12px;line-height:1.35;margin:0}.consent-actions{margin-top:6px;gap:12px}.consent-actions a{font-size:12px}.consent .btn{min-height:38px;padding:0 16px}}
 @media (max-width:900px){#slide1 .hero-copy::after{height:clamp(150px,27vh,280px);background-size:auto 150%;background-position:92% 100%}}
 @media (max-width:900px) and (max-height:720px){#slide1 .hero-copy::after{height:clamp(130px,22vh,170px)}}
+/* phones: the scene is the background of the whole first screen, not a strip */
+@media (max-width:900px){
+  #slide1 .hero-copy::after{display:none!important}
+  #slide1::before{display:block!important;background-size:225% auto;background-position:100% 100%;opacity:.5}
+  #slide1 .hero-copy{padding-bottom:clamp(120px,22vh,200px)}
+}
