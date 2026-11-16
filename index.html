@@ -24,7 +24,7 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preload" href="assets/fonts/barlow-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=1794825428">
+<link rel="stylesheet" href="style.css?v=1794825712">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -127,9 +127,9 @@
         </div>
         <div class="calc">
           <p class="calc-title">Try it</p>
+          <div class="limit"><p>I want to earn at least</p><div class="limit-row"><span>€</span><input id="rLimit" type="text" inputmode="decimal" value="0,50" autocomplete="off" aria-label="The least you want to earn per minute, in euros"><span>per minute</span></div><p class="limit-hour" id="oHour">= €30,00 per hour</p></div>
           <label for="rFare"><div><span>Fare on the offer</span><span id="oFare">€22,00</span></div><input id="rFare" type="range" min="3" max="80" step="0.5" value="22"></label>
           <label for="rMin"><div><span>Pickup + trip</span><span id="oMin">40 min</span></div><input id="rMin" type="range" min="5" max="120" step="1" value="40"></label>
-          <label for="rLimit"><div><span>Your limit</span><span id="oLimit">€0,50 / min</span></div><input id="rLimit" type="range" min="20" max="100" step="1" value="50"></label>
           <div class="verdict" id="verdict" role="status" aria-live="polite"><b id="vWord">Good ride</b><span id="vInfo"></span></div>
         </div>
         </div>
@@ -277,6 +277,6 @@
     <button type="button" class="btn" id="consentOk">Accept</button>
   </div>
 </div>
-<script src="main.js?v=1794825428"></script>
+<script src="main.js?v=1794825712"></script>
 </body>
 </html>

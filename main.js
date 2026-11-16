@@ -128,11 +128,14 @@
   if (rf) {
     var vEl = $('#verdict'), vW = $('#vWord'), vI = $('#vInfo');
     var upd = function () {
-      var fare = +rf.value, mins = +rm.value, limit = +rl.value / 100, v = verdict(fare, mins, limit);
-      $('#oFare').textContent = eur(fare); $('#oMin').textContent = mins + ' min'; $('#oLimit').textContent = eur(limit) + ' / min';
+      var fare = +rf.value, mins = +rm.value, limit = parseFloat(String(rl.value).replace(',', '.'));
+      if (!(limit > 0)) limit = 0.5;   /* same as the app: an empty or zero limit falls back to 0,50 */
+      var v = verdict(fare, mins, limit);
+      $('#oFare').textContent = eur(fare); $('#oMin').textContent = mins + ' min';
+      $('#oHour').textContent = '= ' + eur(limit * 60) + ' per hour';
       vEl.className = 'verdict ' + (v.good ? 'good' : 'bad');
       vW.textContent = v.good ? 'Good ride' : 'Bad ride';
-      vI.textContent = eur(v.pm) + ' / min vs ' + eur(limit);
+      vI.textContent = eur(v.pm) + '/min · ' + eur(v.pm * 60) + '/hour';
     };
     [rf, rm, rl].forEach(function (r) { r.addEventListener('input', upd); });
     upd();

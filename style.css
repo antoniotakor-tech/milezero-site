@@ -466,3 +466,11 @@ footer .cab b{font-size:22px}
   #slide1 .hero-copy{padding-bottom:clamp(120px,22vh,200px)}
 }
 @media (max-width:900px){#slide1::before{opacity:.7;background-size:240% auto}#slide1 .hero-copy{padding-bottom:clamp(140px,22vh,200px)}}
+.limit{background:#1c1c1c;border-radius:12px;padding:14px;text-align:center}
+.limit p{margin:0;font:400 14px var(--body);color:var(--white)}
+.limit-row{display:flex;align-items:baseline;justify-content:center;gap:8px;margin:6px 0}
+.limit-row span{font:400 14px var(--body);color:var(--mut)}
+.limit-row span:first-child{font:500 30px var(--mono)}
+.limit-row input{width:110px;background:transparent;border:0;border-bottom:2px solid var(--gold);border-radius:0;color:var(--white);font:500 38px var(--mono);text-align:center;padding:0 0 2px;outline:0}
+.limit-row input:focus-visible{border-bottom-color:var(--white)}
+.limit .limit-hour{font:400 13px var(--body);color:var(--gold)}
