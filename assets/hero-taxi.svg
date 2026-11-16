@@ -331,6 +331,8 @@
 <!-- body -->
 <path d="M760 640V560Q760 520 800 516L900 508 960 440Q972 426 990 426H1170Q1190 426 1204 440L1270 508 1340 520Q1380 528 1380 566V640Z" fill="#ffde59"/>
 <path d="M760 600H1380V640H760Z" fill="#e0bd3a"/>
+<defs><pattern id="chk" width="24" height="24" patternUnits="userSpaceOnUse" x="760" y="604"><rect width="24" height="24" fill="#fff"/><rect width="12" height="12" fill="#1c1c1c"/><rect x="12" y="12" width="12" height="12" fill="#1c1c1c"/></pattern></defs>
+<rect x="762" y="604" width="616" height="24" fill="url(#chk)"/>
 <!-- window with driver -->
 <path d="M980 450H1166Q1178 450 1186 460L1236 508H940Z" fill="#1d2630"/>
 <path d="M1105 508V496Q1105 470 1128 470Q1150 470 1150 496V508Z" fill="#0d1319"/>
@@ -342,10 +344,12 @@
 <!-- door line, handle -->
 <rect x="1230" y="530" width="40" height="8" rx="4" fill="#c9a52d"/>
 <text x="1070" y="592" text-anchor="middle" font-family="Arial Narrow,Arial,sans-serif" font-weight="800" font-size="50" fill="#2b2b2b">MileZero</text>
-<!-- roof sign, sitting on the roof, readable, facing the way the car drives -->
+<!-- roof sign, three-quarter view: long face with text, front end facing the way the car drives -->
 <rect x="1030" y="424" width="14" height="10" fill="#1c1c1c"/><rect x="1118" y="424" width="14" height="10" fill="#1c1c1c"/>
-<path d="M1020 392H1142Q1156 392 1156 406V418Q1156 426 1148 426H1014Q1006 426 1006 418V406Q1006 392 1020 392Z" fill="#fff"/>
-<text x="1081" y="417" text-anchor="middle" font-family="Arial Narrow,Arial,sans-serif" font-weight="800" font-size="22" fill="#2b2b2b">MileZero</text>
+<path d="M1014 394Q1006 394 1006 402V420Q1006 428 1014 428H1132V390H1014Z" fill="#fff"/>
+<path d="M1132 390L1156 398Q1160 400 1160 406V424Q1160 428 1156 430L1132 428Z" fill="#c9c9c9"/>
+<path d="M1140 398L1152 402V420L1140 418Z" fill="#ffde59"/>
+<text x="1069" y="416" text-anchor="middle" font-family="Arial Narrow,Arial,sans-serif" font-weight="800" font-size="22" fill="#2b2b2b">MileZero</text>
 <!-- lights -->
 <rect x="1360" y="552" width="22" height="26" rx="6" fill="#fff6dc"/>
 <rect x="758" y="552" width="12" height="30" rx="4" fill="#ff0000"/>

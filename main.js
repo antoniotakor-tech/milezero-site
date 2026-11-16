@@ -311,15 +311,17 @@
     });
     var n = Math.round(x / w);
     if (n !== cur) {
-      cur = n;
+      cur = n; fit();
       slides.forEach(function (s, k) { s.classList.toggle('on', k === n); s.toggleAttribute('inert', k !== n); });
       dots.forEach(function (d, k) { d.setAttribute('aria-selected', k === n ? 'true' : 'false'); });
       if (!reduce) restart(slides[n]);
     }
   }
+  function fit() { track.style.height = slides[cur].offsetHeight + 'px'; }
+  window.addEventListener('load', fit); fit();
   var ticking = false;
   track.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; frame(); }); } }, { passive: true });
-  window.addEventListener('resize', function () { track.scrollTo({ left: slides[cur].offsetLeft }); frame(); });
+  window.addEventListener('resize', function () { track.style.height = ''; fit(); track.scrollTo({ left: slides[cur].offsetLeft }); frame(); });
   dots.forEach(function (d) { d.addEventListener('click', function () { go(+d.dataset.i, true); }); });
   document.getElementById('carPrev').addEventListener('click', function () { go(cur - 1, true); });
   document.getElementById('carNext').addEventListener('click', function () { go(cur + 1, true); });
