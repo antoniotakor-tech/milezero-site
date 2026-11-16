@@ -456,3 +456,4 @@ footer .cab b{font-size:22px}
 .hero-grid,.car-slide .hero-grid{grid-template-columns:minmax(0,1fr)}
 .hero-copy{max-width:62%}
 @media (max-width:900px){.hero-copy{max-width:none}}
+@media (max-width:600px){.consent{padding:10px 16px}.consent p{font-size:12px;line-height:1.35;margin:0}.consent-actions{margin-top:6px;gap:12px}.consent-actions a{font-size:12px}.consent .btn{min-height:38px;padding:0 16px}}
