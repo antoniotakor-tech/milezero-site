@@ -465,3 +465,4 @@ footer .cab b{font-size:22px}
   #slide1::before{display:block!important;background-size:225% auto;background-position:100% 100%;opacity:.5}
   #slide1 .hero-copy{padding-bottom:clamp(120px,22vh,200px)}
 }
+@media (max-width:900px){#slide1::before{opacity:.7;background-size:240% auto}#slide1 .hero-copy{padding-bottom:clamp(140px,22vh,200px)}}
