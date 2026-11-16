@@ -474,3 +474,15 @@ footer .cab b{font-size:22px}
 .limit-row input{width:110px;background:transparent;border:0;border-bottom:2px solid var(--gold);border-radius:0;color:var(--white);font:500 38px var(--mono);text-align:center;padding:0 0 2px;outline:0}
 .limit-row input:focus-visible{border-bottom-color:var(--white)}
 .limit .limit-hour{font:400 13px var(--body);color:var(--gold)}
+
+/* 2026-11-16: taxi picture sits between the slogan and the text on phones; no scene behind the text there */
+.scene{display:none}
+@media (max-width:900px){
+  #slide1::before,#slide1 .hero-copy::after{display:none!important}
+  #slide1 .hero-copy{padding-bottom:0!important}
+  .scene{display:block;width:100%;aspect-ratio:2.3/1;max-height:24vh;margin:0 0 clamp(12px,2vh,20px);border-radius:14px;
+    background:url(assets/hero-taxi.svg?v=7) 96% 100%/auto 152% no-repeat;box-shadow:0 14px 32px -14px rgba(0,0,0,.7)}
+}
+/* vision / mission: the headings are bigger than the text */
+.vm-label{margin:0 0 14px;font:800 clamp(44px,5.6vw,76px)/.95 var(--display);letter-spacing:.01em;text-transform:uppercase;color:var(--gold)}
+.vm-text{font:600 clamp(20px,2vw,28px)/1.2 var(--display)}
