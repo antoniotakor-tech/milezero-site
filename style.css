@@ -412,3 +412,11 @@ footer .cab b{font-size:22px}
 @media (max-width:900px){#slide1::before{background-size:210% auto;background-position:80% 64%;opacity:.3}}
 @media (max-width:900px){#slide1::before{display:none}#slide1 .hero-copy::after{content:"";display:block;height:clamp(170px,46vw,330px);margin:32px calc(-1*var(--pad)) 0;background:url(assets/hero-taxi.svg?v=3) right bottom/cover no-repeat}}
 .hero .eyebrow{font-size:clamp(16px,2.6vw,28px);font-weight:600;line-height:1.2;margin-bottom:26px}
+.getcard{background:var(--night);border-radius:14px;padding:18px;max-width:440px;margin-top:32px;box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
+.getcard .cta,.getcard .stores{margin:0}
+.getcard .btn.big{width:100%;justify-content:center}
+.getcard .stores{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.getcard .store{justify-content:flex-start;padding:8px 12px;min-width:0;background:#000}
+.getcard .store span{font-size:17px}
+.final .getcard{background:#1c1c1c}
+@media (max-width:420px){.getcard .store span{font-size:15px}.getcard .store .sicon{height:24px}.getcard .store{gap:8px}}
